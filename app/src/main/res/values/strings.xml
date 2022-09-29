@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Pokedex</string>
+
+    <!--Nome das abas-->
+    <string name="tab_home">Home</string>
+    <string name="tab_pokedex">Pokedex</string>
+    <string name="tab_tipes">Tipos</string>
+
+
+</resources>

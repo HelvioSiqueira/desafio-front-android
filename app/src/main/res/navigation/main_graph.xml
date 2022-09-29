@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.pokedex.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_pokedexFragment"
+            app:destination="@id/pokedexFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_tipesFragment"
+            app:destination="@id/tipesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pokedexFragment"
+        android:name="com.example.pokedex.PokedexFragment"
+        android:label="PokedexFragment" />
+
+    <fragment
+        android:id="@+id/tipesFragment"
+        android:name="com.example.pokedex.TipesFragment"
+        android:label="TipesFragment" />
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.pokedex.DetailsFragment"
+        android:label="DetailsFragment" >
+
+        <action
+            android:id="@+id/action_detailsFragment_to_abilitiesFragment"
+            app:destination="@id/abilitiesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/abilitiesFragment"
+        android:name="com.example.pokedex.AbilitiesFragment"
+        android:label="AbilitiesFragment" />
+
+</navigation>

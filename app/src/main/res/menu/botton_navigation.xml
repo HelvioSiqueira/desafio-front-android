@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/tab_home"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_fav"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="@string/tab_pokedex"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_tipes"
+        android:icon="@drawable/ic_baseline_local_fire_department_24"
+        android:title="@string/tab_tipes"
+        app:showAsAction="ifRoom"/>
+
+</menu>
