@@ -17,13 +17,19 @@ class PokedexAdapter(context: Context, pokeList: List<PokeList>) :
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val poke = getItem(position)
 
+
         val viewHolder = if (convertView == null) {
             binding = ItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             val holder = VH(binding)
             binding.root.tag = holder
-            binding.root.tag
+
+            Log.d("HSV", poke!!.name)
+
             holder
         } else {
+
+            Log.d("HSV", poke!!.name)
+
             convertView.tag as VH
         }
 
