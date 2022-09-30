@@ -6,5 +6,17 @@
     <string name="tab_pokedex">Pokedex</string>
     <string name="tab_tipes">Tipos</string>
 
+    <!--Nome das opções do action bar-->
+    <string name="action_search">Pesquisar</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
 
 </resources>

@@ -29,7 +29,11 @@
         android:id="@+id/action_tipes"
         android:name="com.example.pokedex.TipesFragment"
         android:label="TipesFragment"
-        tools:layout="@layout/fragment_tipes"/>
+        tools:layout="@layout/fragment_tipes">
+        <action
+            android:id="@+id/action_action_tipes_to_action_home"
+            app:destination="@id/action_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/detailsFragment"
@@ -37,7 +41,14 @@
         android:label="DetailsFragment"
         tools:layout="@layout/fragment_details">
 
+        <action
+            android:id="@+id/action_detailsFragment_to_abilitiesFragment"
+            app:destination="@id/abilitiesFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/abilitiesFragment"
+        android:name="com.example.pokedex.AbilitiesFragment"
+        android:label="AbilitiesFragment" />
 
 </navigation>

@@ -1,17 +1,19 @@
 package com.example.pokedex
 
+import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.ListFragment
-import androidx.navigation.Navigation
+import androidx.lifecycle.Lifecycle
 import com.example.pokedex.databinding.FragmentHomeBinding
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
 
     private lateinit var bindind: FragmentHomeBinding
 
@@ -19,8 +21,12 @@ class HomeFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         bindind = FragmentHomeBinding.inflate(layoutInflater)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         return bindind.root
 
     }
@@ -31,9 +37,44 @@ class HomeFragment: Fragment() {
         Log.d("HSV", "HomeFragment startado")
     }
 
-    companion object{
-        const val TAG_HOME = "tagHome"
 
-        fun newIntance() = HomeFragment()
+    override fun onPrepareMenu(menu: Menu) {
+        super.onPrepareMenu(menu)
     }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.pokedex, menu)
+
+
+    }
+
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+
+        return true
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+
+        return true
+    }
+
+    override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
+
+        return true
+    }
+
+    override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
+
+        return true
+    }
+
+    companion object{
+        const val EXTRA_RESULT = "search"
+    }
+
 }

@@ -17,7 +17,7 @@ class PokedexFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPokedexBinding.inflate(layoutInflater)
         return binding.root
     }
