@@ -9,19 +9,19 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.pokedex.databinding.ItemPokemonBinding
 
-class PokedexAdapter(context: Context, pokeList: List<PokeList>): ArrayAdapter<PokeList>(context, 0, pokeList) {
+class PokedexAdapter(context: Context, pokeList: List<PokeList>) :
+    ArrayAdapter<PokeList>(context, 0, pokeList) {
 
     private lateinit var binding: ItemPokemonBinding
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val poke = getItem(position)
 
-        binding = ItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
-        val viewHolder = if(convertView == null){
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pokemon, parent, false)
+        val viewHolder = if (convertView == null) {
+            binding = ItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             val holder = VH(binding)
-            view.tag = holder
+            binding.root.tag = holder
+            binding.root.tag
             holder
         } else {
             convertView.tag as VH
@@ -31,7 +31,7 @@ class PokedexAdapter(context: Context, pokeList: List<PokeList>): ArrayAdapter<P
         return viewHolder.binding.root
     }
 
-    class VH(val binding: ItemPokemonBinding){
+    class VH(val binding: ItemPokemonBinding) {
         val textName: TextView = binding.txtNomePokemon
     }
 }

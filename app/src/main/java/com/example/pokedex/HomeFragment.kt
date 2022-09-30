@@ -8,10 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Lifecycle
-import com.example.pokedex.databinding.FragmentHomeBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,9 +17,8 @@ import retrofit2.Response
 class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListener,
     MenuItem.OnActionExpandListener {
 
-    private lateinit var bindind: FragmentHomeBinding
-
     val pokeList = mutableListOf<PokeList>()
+    private lateinit var pokedexAdapter: PokedexAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +32,10 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
     }
 
     private fun showPokeList(pokeList: List<PokeList>) {
-        val adapter = PokedexAdapter(requireContext(), pokeList)
+
+        pokedexAdapter = PokedexAdapter(requireContext(), pokeList)
+
+        val adapter = pokedexAdapter
         listAdapter = adapter
     }
 
@@ -59,8 +59,11 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
 
                     pokeList.add(poke)
                 }
+                pokedexAdapter.notifyDataSetChanged()
             }
         })
+
+        Log.d("HSV", "Acabou")
     }
 
     override fun onPrepareMenu(menu: Menu) {
@@ -71,7 +74,6 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         menuInflater.inflate(R.menu.pokedex, menu)
 
     }
-
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
 
