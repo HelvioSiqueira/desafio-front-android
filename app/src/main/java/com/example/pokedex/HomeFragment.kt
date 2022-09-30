@@ -1,6 +1,6 @@
 package com.example.pokedex
 
-import android.content.Context
+import com.example.pokedex.http.PokeListGson
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -10,6 +10,10 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Lifecycle
+import com.example.pokedex.adapter.PokedexAdapter
+import com.example.pokedex.http.Endpoint
+import com.example.pokedex.http.NetworkUtils
+import com.example.pokedex.http.PokemonJson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,13 +24,17 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
     val pokeList = mutableListOf<PokeList>()
     private lateinit var pokedexAdapter: PokedexAdapter
 
+    private val retrofitClient = NetworkUtils.getRetrofitInstace(API)
+    private val endpoint = retrofitClient.create(Endpoint::class.java)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        getData()
+        getListPoke()
+        getPokeData()
 
         showPokeList(pokeList)
     }
@@ -39,10 +47,7 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         listAdapter = adapter
     }
 
-    private fun getData() {
-        val retrofitClient = NetworkUtils.getRetrofitInstace("https://pokeapi.co/api/v2/")
-        val endpoint = retrofitClient.create(Endpoint::class.java)
-
+    private fun getListPoke() {
         val callback = endpoint.getPokeList()
 
         callback.enqueue(object : Callback<PokeListGson> {
@@ -62,8 +67,22 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
                 pokedexAdapter.notifyDataSetChanged()
             }
         })
+    }
 
-        Log.d("HSV", "Acabou")
+    private fun getPokeData(){
+        val callback = endpoint.getPokemon("1")
+
+        callback.enqueue(object: Callback<PokemonJson>{
+            override fun onFailure(call: Call<PokemonJson>, t: Throwable) {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<PokemonJson>, response: Response<PokemonJson>) {
+                val pokemon = response.body()
+
+                Log.d("HSV", pokemon.toString())
+            }
+        })
     }
 
     override fun onPrepareMenu(menu: Menu) {
@@ -97,5 +116,9 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
     override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
 
         return true
+    }
+
+    companion object {
+        const val API = "https://pokeapi.co/api/v2/"
     }
 }

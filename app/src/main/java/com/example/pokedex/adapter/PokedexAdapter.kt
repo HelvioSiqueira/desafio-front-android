@@ -1,4 +1,4 @@
-package com.example.pokedex
+package com.example.pokedex.adapter
 
 import android.content.Context
 import android.util.Log
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import com.example.pokedex.PokeList
 import com.example.pokedex.databinding.ItemPokemonBinding
 
 class PokedexAdapter(context: Context, pokeList: List<PokeList>) :
@@ -17,18 +18,17 @@ class PokedexAdapter(context: Context, pokeList: List<PokeList>) :
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val poke = getItem(position)
 
-
         val viewHolder = if (convertView == null) {
             binding = ItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             val holder = VH(binding)
             binding.root.tag = holder
 
-            Log.d("HSV", poke!!.name)
+            //Log.d("HSV", poke!!.name)
 
             holder
         } else {
 
-            Log.d("HSV", poke!!.name)
+            //Log.d("HSV", poke!!.name)
 
             convertView.tag as VH
         }
