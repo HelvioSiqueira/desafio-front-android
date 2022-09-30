@@ -16,8 +16,6 @@ class PokedexAdapter(context: Context, pokeList: List<PokeList>): ArrayAdapter<P
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val poke = getItem(position)
 
-        Log.d("HSV", poke!!.name)
-
         binding = ItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         val viewHolder = if(convertView == null){
@@ -29,7 +27,7 @@ class PokedexAdapter(context: Context, pokeList: List<PokeList>): ArrayAdapter<P
             convertView.tag as VH
         }
 
-        viewHolder.textName.text = poke.name.replaceFirstChar { it.uppercase() }
+        viewHolder.textName.text = poke!!.name.replaceFirstChar { it.uppercase() }
         return viewHolder.binding.root
     }
 

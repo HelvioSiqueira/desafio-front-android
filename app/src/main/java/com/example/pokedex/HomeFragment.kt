@@ -31,8 +31,6 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
 
         getData()
 
-        Log.d("HSV", pokeList.joinToString(" | "))
-
         showPokeList(pokeList)
     }
 
@@ -65,19 +63,12 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         })
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        Log.d("HSV", "HomeFragment startado")
-    }
-    
     override fun onPrepareMenu(menu: Menu) {
         super.onPrepareMenu(menu)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.pokedex, menu)
-
 
     }
 
@@ -105,9 +96,4 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
 
         return true
     }
-
-    companion object {
-        const val TAG_HOME = "home"
-    }
-
 }
