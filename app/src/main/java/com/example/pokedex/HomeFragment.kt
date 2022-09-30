@@ -1,34 +1,68 @@
 package com.example.pokedex
 
-import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Lifecycle
 import com.example.pokedex.databinding.FragmentHomeBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
+class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListener,
+    MenuItem.OnActionExpandListener {
 
     private lateinit var bindind: FragmentHomeBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        bindind = FragmentHomeBinding.inflate(layoutInflater)
+    val pokeList = mutableListOf<PokeList>()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        return bindind.root
+        getData()
 
+        Log.d("HSV", pokeList.joinToString(" | "))
+
+        showPokeList(pokeList)
+    }
+
+    private fun showPokeList(pokeList: List<PokeList>) {
+        val adapter = PokedexAdapter(requireContext(), pokeList)
+        listAdapter = adapter
+    }
+
+    private fun getData() {
+        val retrofitClient = NetworkUtils.getRetrofitInstace("https://pokeapi.co/api/v2/")
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        val callback = endpoint.getPokeList()
+
+        callback.enqueue(object : Callback<PokeListGson> {
+            override fun onFailure(call: Call<PokeListGson>, t: Throwable) {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<PokeListGson>, response: Response<PokeListGson>) {
+
+                response.body()?.results?.forEach {
+                    val poke = PokeList()
+                    poke.name = it.name
+                    poke.url = it.url
+
+                    pokeList.add(poke)
+                }
+            }
+        })
     }
 
     override fun onAttach(context: Context) {
@@ -36,8 +70,7 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener, M
 
         Log.d("HSV", "HomeFragment startado")
     }
-
-
+    
     override fun onPrepareMenu(menu: Menu) {
         super.onPrepareMenu(menu)
     }
@@ -73,8 +106,8 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener, M
         return true
     }
 
-    companion object{
-        const val EXTRA_RESULT = "search"
+    companion object {
+        const val TAG_HOME = "home"
     }
 
 }
