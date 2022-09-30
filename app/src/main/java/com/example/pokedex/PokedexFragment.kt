@@ -1,6 +1,8 @@
 package com.example.pokedex
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,5 +20,11 @@ class PokedexFragment: Fragment() {
     ): View? {
         binding = FragmentPokedexBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        Log.d("HSV", "PokedexFragment startado")
     }
 }

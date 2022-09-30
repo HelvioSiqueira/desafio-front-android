@@ -1,6 +1,8 @@
 package com.example.pokedex
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +23,12 @@ class HomeFragment: Fragment() {
         bindind = FragmentHomeBinding.inflate(layoutInflater)
         return bindind.root
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        Log.d("HSV", "HomeFragment startado")
     }
 
     companion object{

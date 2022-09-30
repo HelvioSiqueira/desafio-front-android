@@ -5,19 +5,16 @@
     <item
         android:id="@+id/action_home"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/tab_home"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/tab_home"/>
 
     <item
         android:id="@+id/action_fav"
         android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="@string/tab_pokedex"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/tab_pokedex"/>
 
     <item
         android:id="@+id/action_tipes"
         android:icon="@drawable/ic_baseline_local_fire_department_24"
-        android:title="@string/tab_tipes"
-        app:showAsAction="ifRoom"/>
+        android:title="@string/tab_tipes"/>
 
 </menu>

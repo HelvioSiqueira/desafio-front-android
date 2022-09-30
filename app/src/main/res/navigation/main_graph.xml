@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/action_home">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/action_home"
         android:name="com.example.pokedex.HomeFragment"
-        android:label="HomeFragment">
-        <action
-            android:id="@+id/action_homeFragment_to_pokedexFragment"
-            app:destination="@id/pokedexFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_tipesFragment"
-            app:destination="@id/tipesFragment" />
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/pokedexFragment"
+        android:id="@+id/action_fav"
         android:name="com.example.pokedex.PokedexFragment"
-        android:label="PokedexFragment" />
+        android:label="PokedexFragment"
+        tools:layout="@layout/fragment_pokedex">
+        <action
+            android:id="@+id/action_pokedexFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/tipesFragment"
+        android:id="@+id/action_tipes"
         android:name="com.example.pokedex.TipesFragment"
-        android:label="TipesFragment" />
+        android:label="TipesFragment"
+        tools:layout="@layout/fragment_tipes"/>
 
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.pokedex.DetailsFragment"
-        android:label="DetailsFragment" >
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_details">
 
-        <action
-            android:id="@+id/action_detailsFragment_to_abilitiesFragment"
-            app:destination="@id/abilitiesFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/abilitiesFragment"
-        android:name="com.example.pokedex.AbilitiesFragment"
-        android:label="AbilitiesFragment" />
 
 </navigation>
