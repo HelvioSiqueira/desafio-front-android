@@ -2,6 +2,7 @@ package com.example.pokedex
 
 import com.example.pokedex.http.PokeListGson
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -27,6 +28,9 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
     private val retrofitClient = NetworkUtils.getRetrofitInstace(API)
     private val endpoint = retrofitClient.create(Endpoint::class.java)
 
+    private var searchView: SearchView? = null
+    private var lastSearchTerm: String = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -40,7 +44,6 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
     }
 
     private fun showPokeList(pokeList: List<PokeList>) {
-
         pokedexAdapter = PokedexAdapter(requireContext(), pokeList)
 
         val adapter = pokedexAdapter
@@ -69,10 +72,10 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         })
     }
 
-    private fun getPokeData(){
+    private fun getPokeData() {
         val callback = endpoint.getPokemon("1")
 
-        callback.enqueue(object: Callback<PokemonJson>{
+        callback.enqueue(object : Callback<PokemonJson> {
             override fun onFailure(call: Call<PokemonJson>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
             }
@@ -88,7 +91,7 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         })
     }
 
-    private fun toPokemon(pokemonJson: PokemonJson?): Pokemon{
+    private fun toPokemon(pokemonJson: PokemonJson?): Pokemon {
         val pokemon = Pokemon()
 
         pokemon.apply {
@@ -112,28 +115,38 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.pokedex, menu)
 
+        val searchItem = menu.findItem(R.id.action_search)
+        searchItem.setOnActionExpandListener(this)
+        searchView = searchItem?.actionView as SearchView
+        searchView?.queryHint = getString(R.string.hint_search)
+        searchView?.setOnQueryTextListener(this)
+
+        if (lastSearchTerm.isNotEmpty()) {
+            Handler().post {
+                val query = lastSearchTerm
+                searchItem.expandActionView()
+                searchView?.setQuery(query, true)
+                searchView?.clearFocus()
+            }
+        }
     }
 
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+    override fun onMenuItemSelected(menuItem: MenuItem) = true
 
-        return true
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun onQueryTextSubmit(query: String?) = true
 
     override fun onQueryTextChange(newText: String?): Boolean {
+        lastSearchTerm = newText ?: ""
+        showPokeList(pokeList.filter { it.name.uppercase().contains(lastSearchTerm.uppercase()) })
 
         return true
     }
 
-    override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
-
-        return true
-    }
+    override fun onMenuItemActionExpand(p0: MenuItem) = true
 
     override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
+        lastSearchTerm = ""
+        showPokeList(pokeList)
 
         return true
     }
