@@ -16,11 +16,14 @@ data class PokemonJson(
     @SerializedName("types")
     val _types: List<Type> = arrayListOf(),
     @SerializedName("stats")
-    val stats: List<BaseStat>
-){
+    val stats: List<BaseStat> = arrayListOf(),
+    @SerializedName("abilities")
+    val abilities: List<Ability> = arrayListOf(),
+    @SerializedName("sprites")
+    val sprites: Other
+)
 
-}
-
+//Pega a String contendo o tipo do pokemon
 data class Type(
     @SerializedName("type")
     val type: NameType
@@ -31,6 +34,9 @@ data class NameType(
     val nameType: String = ""
 )
 
+//--------------------------------------
+
+//Pega o Int com status base e nome do status
 data class BaseStat(
     @SerializedName("base_stat")
     val base_stat: Int = 0,
@@ -41,4 +47,35 @@ data class BaseStat(
 data class NameStat(
     @SerializedName("name")
     val nameStat: String = ""
+)
+
+//--------------------------------------
+
+//Pega o nome das habilidades
+data class Ability(
+    @SerializedName("ability")
+    val ability: NameAbility
+)
+
+data class NameAbility(
+    @SerializedName("name")
+    val nameAbility: String = ""
+)
+
+//--------------------------------------
+
+//Pega o sprite official
+data class Other(
+    @SerializedName("other")
+    val officilArtworK: OfficialArtwork
+)
+
+data class OfficialArtwork(
+    @SerializedName("official-artwork")
+    val frontDefault: FrontDefault
+)
+
+data class FrontDefault(
+    @SerializedName("front_default")
+    val url: String = ""
 )

@@ -98,6 +98,8 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
             weight = pokemonJson._weight
             types = pokemonJson._types.map { it.type.nameType }
             stats = pokemonJson.stats.map { mapOf(Pair(it.stat.nameStat, it.base_stat)) }
+            abilites = pokemonJson.abilities.map { it.ability.nameAbility }
+            sprite = pokemonJson.sprites.officilArtworK.frontDefault.url
         }
 
         return pokemon

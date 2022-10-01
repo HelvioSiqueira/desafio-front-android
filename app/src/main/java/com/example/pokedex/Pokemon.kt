@@ -6,5 +6,7 @@ data class Pokemon(
     var height: String = "",
     var weight: String = "",
     var types: List<String> = arrayListOf(),
-    var stats: List<Map<String, Int>> = arrayListOf()
+    var stats: List<Map<String, Int>> = arrayListOf(),
+    var abilites: List<String> = arrayListOf(),
+    var sprite: String = ""
 )
