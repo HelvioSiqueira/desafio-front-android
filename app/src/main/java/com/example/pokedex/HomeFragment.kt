@@ -80,9 +80,27 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
             override fun onResponse(call: Call<PokemonJson>, response: Response<PokemonJson>) {
                 val pokemon = response.body()
 
+                Log.d("HSV", toPokemon(pokemon).toString())
+
                 Log.d("HSV", pokemon.toString())
+
             }
         })
+    }
+
+    private fun toPokemon(pokemonJson: PokemonJson?): Pokemon{
+        val pokemon = Pokemon()
+
+        pokemon.apply {
+            name = pokemonJson!!._name
+            id = pokemonJson._id
+            height = pokemonJson._height
+            weight = pokemonJson._weight
+            types = pokemonJson._types.map { it.type.nameType }
+            stats = pokemonJson.stats.map { mapOf(Pair(it.stat.nameStat, it.base_stat)) }
+        }
+
+        return pokemon
     }
 
     override fun onPrepareMenu(menu: Menu) {

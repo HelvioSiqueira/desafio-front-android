@@ -1,29 +1,44 @@
 package com.example.pokedex.http
 
+import android.util.Log
+import com.example.pokedex.Pokemon
 import com.google.gson.annotations.SerializedName
 
 data class PokemonJson(
     @SerializedName("name")
-    val name: String = "",
+    var _name: String = "",
     @SerializedName("id")
-    val id: String = "",
+    val _id: String = "",
     @SerializedName("height")
-    val height: String = "",
+    val _height: String = "",
     @SerializedName("weight")
-    val weight: String = "",
-    //val types: List<Type> = arrayListOf(),
-    //val stats: List<BaseStat> = arrayListOf()
-)
+    val _weight: String = "",
+    @SerializedName("types")
+    val _types: List<Type> = arrayListOf(),
+    @SerializedName("stats")
+    val stats: List<BaseStat>
+){
+
+}
 
 data class Type(
+    @SerializedName("type")
+    val type: NameType
+)
+
+data class NameType(
+    @SerializedName("name")
     val nameType: String = ""
 )
 
 data class BaseStat(
-    val nameStat: Stat,
-    val base_stat: Int = 0
+    @SerializedName("base_stat")
+    val base_stat: Int = 0,
+    @SerializedName("stat")
+    val stat: NameStat
 )
 
-data class Stat(
+data class NameStat(
+    @SerializedName("name")
     val nameStat: String = ""
 )
