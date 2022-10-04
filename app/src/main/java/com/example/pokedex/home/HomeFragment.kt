@@ -1,4 +1,4 @@
-package com.example.pokedex
+package com.example.pokedex.home
 
 import com.example.pokedex.http.PokeListGson
 import android.os.Bundle
@@ -12,23 +12,30 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import com.example.pokedex.PokeList
+import com.example.pokedex.Pokemon
+import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexAdapter
-import com.example.pokedex.http.Endpoint
-import com.example.pokedex.http.NetworkUtils
 import com.example.pokedex.http.PokemonJson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+//Transformar projeto em mvvm
+//Transformar funções do EndPoint de Call para Response e tratar direto no viel model
+
+//Inserir o NetworkUtils no modulo de injeção de dependencia
 
 class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListener,
     MenuItem.OnActionExpandListener {
 
+    private val viewModel: HomeViewModel by viewModel()
+
     val pokeList = mutableListOf<PokeList>()
     private lateinit var pokedexAdapter: PokedexAdapter
-
-    private val retrofitClient = NetworkUtils.getRetrofitInstace(API)
-    private val endpoint = retrofitClient.create(Endpoint::class.java)
 
     private var searchView: SearchView? = null
     private var lastSearchTerm: String = ""
@@ -39,10 +46,9 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        getListPoke()
-        getPokeData()
-
-        showPokeList(pokeList)
+        viewModel.pokeList.observe(viewLifecycleOwner, Observer { pokeList ->
+            showPokeList(pokeList)
+        })
     }
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
@@ -56,7 +62,7 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
 
         Navigation.findNavController(requireActivity(), R.id.navHostFragment)
             .navigate(R.id.action_homeFragment_to_detailsFragment, args)
-        
+
     }
 
     private fun showPokeList(pokeList: List<PokeList>) {
@@ -64,64 +70,6 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
 
         val adapter = pokedexAdapter
         listAdapter = adapter
-    }
-
-    private fun getListPoke() {
-        val callback = endpoint.getPokeList()
-
-        callback.enqueue(object : Callback<PokeListGson> {
-            override fun onFailure(call: Call<PokeListGson>, t: Throwable) {
-                Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
-            }
-
-            override fun onResponse(call: Call<PokeListGson>, response: Response<PokeListGson>) {
-
-                response.body()?.results?.forEach {
-                    val poke = PokeList()
-                    poke.name = it.name
-                    poke.url = it.url
-
-                    pokeList.add(poke)
-                }
-                pokedexAdapter.notifyDataSetChanged()
-            }
-        })
-    }
-
-    private fun getPokeData() {
-        val callback = endpoint.getPokemon("1")
-
-        callback.enqueue(object : Callback<PokemonJson> {
-            override fun onFailure(call: Call<PokemonJson>, t: Throwable) {
-                Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
-            }
-
-            override fun onResponse(call: Call<PokemonJson>, response: Response<PokemonJson>) {
-                val pokemon = response.body()
-
-                Log.d("HSV", toPokemon(pokemon).toString())
-
-                Log.d("HSV", pokemon.toString())
-
-            }
-        })
-    }
-
-    private fun toPokemon(pokemonJson: PokemonJson?): Pokemon {
-        val pokemon = Pokemon()
-
-        pokemon.apply {
-            name = pokemonJson!!._name
-            id = pokemonJson._id
-            height = pokemonJson._height
-            weight = pokemonJson._weight
-            types = pokemonJson._types.map { it.type.nameType }
-            stats = pokemonJson.stats.map { mapOf(Pair(it.stat.nameStat, it.base_stat)) }
-            abilites = pokemonJson.abilities.map { it.ability.nameAbility }
-            sprite = pokemonJson.sprites.officilArtworK.frontDefault.url
-        }
-
-        return pokemon
     }
 
     override fun onPrepareMenu(menu: Menu) {

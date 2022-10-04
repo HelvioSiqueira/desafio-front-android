@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/action_home"
-        android:name="com.example.pokedex.HomeFragment"
+        android:name="com.example.pokedex.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/action_fav"
-        android:name="com.example.pokedex.PokedexFragment"
+        android:name="com.example.pokedex.favorites.PokedexFragment"
         android:label="PokedexFragment"
         tools:layout="@layout/fragment_pokedex">
         <action
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/action_tipes"
-        android:name="com.example.pokedex.TipesFragment"
+        android:name="com.example.pokedex.tipes.TipesFragment"
         android:label="TipesFragment"
         tools:layout="@layout/fragment_tipes">
         <action
@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.pokedex.DetailsFragment"
+        android:name="com.example.pokedex.details.DetailsFragment"
         android:label="DetailsFragment"
         tools:layout="@layout/fragment_details">
 

@@ -1,4 +1,4 @@
-package com.example.pokedex
+package com.example.pokedex.tipes
 
 import android.content.Context
 import android.os.Bundle
@@ -7,24 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.pokedex.databinding.FragmentPokedexBinding
+import com.example.pokedex.databinding.FragmentTipesBinding
 
-class PokedexFragment: Fragment() {
+class TipesFragment: Fragment() {
 
-    private lateinit var binding: FragmentPokedexBinding
+    private lateinit var binding: FragmentTipesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPokedexBinding.inflate(layoutInflater)
+        binding = FragmentTipesBinding.inflate(LayoutInflater.from(requireContext()))
         return binding.root
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        Log.d("HSV", "PokedexFragment startado")
+        Log.d("HSV", "TipesFragment startado")
     }
+
 }

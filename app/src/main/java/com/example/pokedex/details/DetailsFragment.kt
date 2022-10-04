@@ -1,4 +1,4 @@
-package com.example.pokedex
+package com.example.pokedex.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
