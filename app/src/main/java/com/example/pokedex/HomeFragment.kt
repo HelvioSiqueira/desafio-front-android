@@ -12,6 +12,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.Navigation
 import com.example.pokedex.adapter.PokedexAdapter
 import com.example.pokedex.http.Endpoint
 import com.example.pokedex.http.NetworkUtils
@@ -47,9 +48,15 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
         super.onListItemClick(l, v, position, id)
 
-        val item = l.getItemAtPosition(position)
+        val item = l.getItemAtPosition(position) as PokeList
 
-        Log.d("HSV", item.toString())
+        val args = Bundle().apply {
+            putString("poke_name", item.name)
+        }
+
+        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+            .navigate(R.id.action_homeFragment_to_detailsFragment, args)
+        
     }
 
     private fun showPokeList(pokeList: List<PokeList>) {

@@ -15,8 +15,18 @@ class DetailsFragment:Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         binding = FragmentDetailsBinding.inflate(layoutInflater)
+
+        arguments?.run {
+            val pokeName = getString("poke_name")
+
+            binding.pokeName.text = pokeName.toString().uppercase()
+        }
+
         return binding.root
+
+
     }
 }
