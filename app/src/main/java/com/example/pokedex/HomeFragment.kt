@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.*
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
@@ -41,6 +42,14 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         getPokeData()
 
         showPokeList(pokeList)
+    }
+
+    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
+        super.onListItemClick(l, v, position, id)
+
+        val item = l.getItemAtPosition(position)
+
+        Log.d("HSV", item.toString())
     }
 
     private fun showPokeList(pokeList: List<PokeList>) {
