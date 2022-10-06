@@ -48,7 +48,5 @@ class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
         if(response.isSuccessful){
             onListIsReady.value = true
         }
-
-
     }
 }

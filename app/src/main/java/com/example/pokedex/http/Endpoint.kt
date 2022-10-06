@@ -11,4 +11,7 @@ interface Endpoint {
 
     @GET("pokemon/{idOrName}")
     suspend fun getPokemon(@Path("idOrName") idOrName: String): Response<PokemonJson>
+
+    @GET("type/")
+    suspend fun getPokeTypes(): Response<ListTypesGson>
 }
