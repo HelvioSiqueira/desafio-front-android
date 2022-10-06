@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.example.pokedex.PokeList
 import com.example.pokedex.http.PokeListGson
 import com.example.pokedex.repository.PokeRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -13,7 +12,7 @@ class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
 
     val error = MutableLiveData<Boolean>()
 
-    val pokeList = mutableListOf<PokeList>()
+    private val pokeList = mutableListOf<PokeList>()
 
     val onListIsReady = MutableLiveData<Boolean>()
 

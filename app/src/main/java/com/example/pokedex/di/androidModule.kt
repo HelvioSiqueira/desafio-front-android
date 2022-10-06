@@ -1,6 +1,7 @@
 package com.example.pokedex.di
 
 import com.example.pokedex.adapter.util.API
+import com.example.pokedex.details.DetailsViewModel
 import com.example.pokedex.home.HomeViewModel
 import com.example.pokedex.http.Endpoint
 import com.example.pokedex.repository.PokeRepository
@@ -19,8 +20,12 @@ val androidModule = module {
         PokeRepository(api = get()) as PokeRepository
     }
 
-    viewModel() {
+    viewModel{
         HomeViewModel(repository = get())
+    }
+
+    viewModel {
+        DetailsViewModel(repository = get())
     }
 
     single {

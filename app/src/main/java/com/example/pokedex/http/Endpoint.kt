@@ -11,5 +11,5 @@ interface Endpoint {
     suspend fun getPokeList(): Response<PokeListGson>
 
     @GET("pokemon/{idOrName}")
-    fun getPokemon(@Path("idOrName") idOrName: String): Call<PokemonJson>
+    suspend fun getPokemon(@Path("idOrName") idOrName: String): Response<PokemonJson>
 }

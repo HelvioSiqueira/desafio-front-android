@@ -16,11 +16,11 @@ data class PokemonJson(
     @SerializedName("types")
     val _types: List<Type> = arrayListOf(),
     @SerializedName("stats")
-    val stats: List<BaseStat> = arrayListOf(),
+    val _stats: List<BaseStat> = arrayListOf(),
     @SerializedName("abilities")
-    val abilities: List<Ability> = arrayListOf(),
+    val _abilities: List<Ability> = arrayListOf(),
     @SerializedName("sprites")
-    val sprites: Other
+    val _sprites: Other
 )
 
 //Pega a String contendo o tipo do pokemon
