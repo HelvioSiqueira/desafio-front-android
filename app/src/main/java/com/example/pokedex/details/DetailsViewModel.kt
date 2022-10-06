@@ -1,14 +1,10 @@
 package com.example.pokedex.details
 
-
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.pokedex.Pokemon
 import com.example.pokedex.http.PokemonJson
 import com.example.pokedex.repository.PokeRepository
-import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class DetailsViewModel(private val repository: PokeRepository) : ViewModel() {
@@ -17,7 +13,6 @@ class DetailsViewModel(private val repository: PokeRepository) : ViewModel() {
     val error = MutableLiveData<Boolean>()
 
     suspend fun getPokemon(pokeName: String): MutableLiveData<Pokemon> {
-
        return getPokeData(pokeName)
     }
 

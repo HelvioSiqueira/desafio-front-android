@@ -16,15 +16,7 @@ import androidx.navigation.Navigation
 import com.example.pokedex.PokeList
 import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexAdapter
-import kotlinx.coroutines.*
-import okhttp3.internal.notifyAll
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.coroutines.CoroutineContext
-
-//Transformar projeto em mvvm
-//Transformar funções do EndPoint de Call para Response e tratar direto no viel model
-
-//Inserir o NetworkUtils no modulo de injeção de dependencia
 
 class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListener,
     MenuItem.OnActionExpandListener{
@@ -53,7 +45,6 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
 
     private fun obterLista(){
         viewModel.getList().observe(viewLifecycleOwner, Observer { list->
-            Log.d("HSV", "Tentou colocar na tela")
             showPokeList(list)
         })
 

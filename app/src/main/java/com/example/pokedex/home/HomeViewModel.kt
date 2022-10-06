@@ -21,7 +21,6 @@ class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
     init {
         viewModelScope.launch {
             getPokeList()
-            Log.d("HSV", "No init: ${pokeList.joinToString(" | ")}")
         }
     }
 
@@ -47,7 +46,6 @@ class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
             pokeList.add(poke)
         }
         if(response.isSuccessful){
-            Log.d("HSV", "No getList : ${pokeList.joinToString(" | ")}")
             onListIsReady.value = true
         }
 
