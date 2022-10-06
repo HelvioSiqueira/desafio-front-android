@@ -1,8 +1,6 @@
 package com.example.pokedex.details
 
-import android.util.Log
-import android.view.View
-import android.widget.Toast
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokedex.Pokemon

@@ -1,53 +1,57 @@
 package com.example.pokedex.home
 
-import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.pokedex.PokeList
 import com.example.pokedex.http.PokeListGson
 import com.example.pokedex.repository.PokeRepository
-import retrofit2.Call
-import retrofit2.Callback
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class HomeViewModel(private val repository: PokeRepository): ViewModel() {
+class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
 
-    val pokeList = MutableLiveData<MutableList<PokeList>>()
     val error = MutableLiveData<Boolean>()
 
-    private suspend fun getPokeList() {
+    val pokeList = mutableListOf<PokeList>()
 
-        val callback = repository.pokeList()
+    val onListIsReady = MutableLiveData<Boolean>()
 
+    val searchTerm = MutableLiveData<String>()
 
-        callback.enqueue(object : Callback<PokeListGson> {
-            override fun onFailure(call: Call<PokeListGson>, t: Throwable) {
-                error.value = true
-            }
-
-            override fun onResponse(call: Call<PokeListGson>, response: Response<PokeListGson>) {
-
-                response.body()?.results?.forEach {
-                    val poke = PokeList()
-                    poke.name = it.name
-                    poke.url = it.url
-
-                    pokeList.value?.add(poke)
-                }
-            }
-        })
+    init {
+        viewModelScope.launch {
+            getPokeList()
+            Log.d("HSV", "No init: ${pokeList.joinToString(" | ")}")
+        }
     }
 
-    private fun handleResponse(response: Response<PokeListGson>) {
+    fun getList(): LiveData<List<PokeList>> = Transformations.switchMap(searchTerm) { term ->
+        MutableLiveData(pokeList.filter { it.name.uppercase().contains(term.uppercase()) })
+    }
 
-        if (response.isSuccessful) {
-            response.body()?.results?.forEach {
-                val poke = PokeList()
-                poke.name = it.name
-                poke.url = it.url
+    private suspend fun getPokeList() {
+        val response = repository.pokeList()
 
-                pokeList.value?.add(poke)
-            }
+        if(response.isSuccessful){
+            toPokeList(response)
         }
+    }
+
+    private fun toPokeList(response: Response<PokeListGson>) {
+        response.body()?.results?.forEach {
+            val poke = PokeList()
+
+            poke.name = it.name
+            poke.url = it.url
+
+            pokeList.add(poke)
+        }
+        if(response.isSuccessful){
+            Log.d("HSV", "No getList : ${pokeList.joinToString(" | ")}")
+            onListIsReady.value = true
+        }
+
+
     }
 }

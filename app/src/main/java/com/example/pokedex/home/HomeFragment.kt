@@ -1,6 +1,5 @@
 package com.example.pokedex.home
 
-import com.example.pokedex.http.PokeListGson
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -15,14 +14,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.example.pokedex.PokeList
-import com.example.pokedex.Pokemon
 import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexAdapter
-import com.example.pokedex.http.PokemonJson
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.*
+import okhttp3.internal.notifyAll
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.coroutines.CoroutineContext
 
 //Transformar projeto em mvvm
 //Transformar funções do EndPoint de Call para Response e tratar direto no viel model
@@ -30,15 +27,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 //Inserir o NetworkUtils no modulo de injeção de dependencia
 
 class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListener,
-    MenuItem.OnActionExpandListener {
+    MenuItem.OnActionExpandListener{
 
     private val viewModel: HomeViewModel by viewModel()
 
-    val pokeList = mutableListOf<PokeList>()
+    var pokeList = mutableListOf<PokeList>()
     private lateinit var pokedexAdapter: PokedexAdapter
 
     private var searchView: SearchView? = null
     private var lastSearchTerm: String = ""
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,9 +44,20 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        viewModel.pokeList.observe(viewLifecycleOwner, Observer { pokeList ->
-            showPokeList(pokeList)
+        viewModel.onListIsReady.observe(viewLifecycleOwner, Observer { ready->
+            if(ready){
+                obterLista()
+            }
         })
+    }
+
+    private fun obterLista(){
+        viewModel.getList().observe(viewLifecycleOwner, Observer { list->
+            Log.d("HSV", "Tentou colocar na tela")
+            showPokeList(list)
+        })
+
+        viewModel.searchTerm.value = ""
     }
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
@@ -66,14 +75,12 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
     }
 
     private fun showPokeList(pokeList: List<PokeList>) {
+
         pokedexAdapter = PokedexAdapter(requireContext(), pokeList)
 
         val adapter = pokedexAdapter
         listAdapter = adapter
-    }
 
-    override fun onPrepareMenu(menu: Menu) {
-        super.onPrepareMenu(menu)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -113,9 +120,5 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         showPokeList(pokeList)
 
         return true
-    }
-
-    companion object {
-        const val API = "https://pokeapi.co/api/v2/"
     }
 }
