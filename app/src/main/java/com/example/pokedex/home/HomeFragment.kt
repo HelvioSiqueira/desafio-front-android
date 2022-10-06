@@ -46,6 +46,7 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
     private fun obterLista(){
         viewModel.getList().observe(viewLifecycleOwner, Observer { list->
             showPokeList(list)
+            pokeList = list.toMutableList()
         })
 
         viewModel.searchTerm.value = ""
