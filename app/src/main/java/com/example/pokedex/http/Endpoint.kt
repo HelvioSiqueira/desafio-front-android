@@ -1,5 +1,6 @@
 package com.example.pokedex.http
 
+import com.example.pokedex.PokeListTypes
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,4 +15,7 @@ interface Endpoint {
 
     @GET("type/")
     suspend fun getPokeTypes(): Response<ListTypesGson>
+
+    @GET("{url}")
+    suspend fun getPokeListTypes(@Path("url") url: String): Response<PokeListTypes>
 }

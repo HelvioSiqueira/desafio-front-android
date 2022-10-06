@@ -6,6 +6,7 @@ class PokeRepository(private val api: Endpoint) {
 
     suspend fun pokeList() = api.getPokeList()
     suspend fun pokeData(nomePoke: String) = api.getPokemon(nomePoke)
-    suspend fun pokeListTypes() = api.getPokeTypes()
+    suspend fun listTypes() = api.getPokeTypes()
+    suspend fun pokeListType(url: String) = api.getPokeListTypes(url)
 
 }

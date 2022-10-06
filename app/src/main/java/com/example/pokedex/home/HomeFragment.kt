@@ -65,7 +65,6 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
             .navigate(R.id.action_homeFragment_to_detailsFragment, args)
 
     }
-
     private fun showPokeList(pokeList: List<PokeList>) {
 
         pokedexAdapter = PokedexAdapter(requireContext(), pokeList)

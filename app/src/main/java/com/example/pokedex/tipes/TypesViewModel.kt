@@ -24,9 +24,7 @@ class TypesViewModel(private val repository: PokeRepository): ViewModel() {
 
     private suspend fun getPokeTypes(){
 
-        val response = repository.pokeListTypes()
-
-        Log.d("HSV", "${response.isSuccessful}")
+        val response = repository.listTypes()
 
         if(response.isSuccessful){
             response.body()?.listTypes?.forEach {
@@ -34,8 +32,6 @@ class TypesViewModel(private val repository: PokeRepository): ViewModel() {
 
                 pokeList.name = it.name
                 pokeList.url = it.url
-
-                Log.d("HSV", it.name)
 
                 listTypes.add(pokeList)
             }

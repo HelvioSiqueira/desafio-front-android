@@ -34,8 +34,11 @@
         android:label="TipesFragment"
         tools:layout="@layout/fragment_tipes">
         <action
-            android:id="@+id/action_action_tipes_to_action_home"
-            app:destination="@id/action_home" />
+            android:id="@+id/action_action_tipes_to_listPokeFragment"
+            app:destination="@id/listPokeFragment" />
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -53,5 +56,9 @@
         android:id="@+id/abilitiesFragment"
         android:name="com.example.pokedex.AbilitiesFragment"
         android:label="AbilitiesFragment" />
+    <fragment
+        android:id="@+id/listPokeFragment"
+        android:name="com.example.pokedex.tipes.ListPokeFragment"
+        android:label="ListPokeFragment" />
 
 </navigation>

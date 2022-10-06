@@ -5,6 +5,7 @@ import com.example.pokedex.details.DetailsViewModel
 import com.example.pokedex.home.HomeViewModel
 import com.example.pokedex.http.Endpoint
 import com.example.pokedex.repository.PokeRepository
+import com.example.pokedex.tipes.ListPokeViewModel
 import com.example.pokedex.tipes.TypesViewModel
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -31,6 +32,10 @@ val androidModule = module {
 
     viewModel{
         TypesViewModel(repository = get())
+    }
+
+    viewModel {
+        ListPokeViewModel(repository = get())
     }
 
     single {
