@@ -1,6 +1,6 @@
 package com.example.pokedex.di
 
-import com.example.pokedex.adapter.util.API
+import com.example.pokedex.util.API
 import com.example.pokedex.details.DetailsViewModel
 import com.example.pokedex.home.HomeViewModel
 import com.example.pokedex.http.Endpoint

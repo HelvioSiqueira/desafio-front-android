@@ -1,13 +1,14 @@
-package com.example.pokedex.http
+package com.example.pokedex.http.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-data class ListTypesGson(
+data class PokeListGson(
     @SerializedName("results")
-    val listTypes: List<PokeType> = arrayListOf()
-)
+    val results: List<Result> = arrayListOf()
+): Serializable
 
-data class PokeType(
+data class Result(
     @SerializedName("name")
     val name: String = "",
     @SerializedName("url")

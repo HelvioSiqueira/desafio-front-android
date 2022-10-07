@@ -8,5 +8,7 @@ data class Pokemon(
     var types: List<String> = arrayListOf(),
     var stats: List<Map<String, Int>> = arrayListOf(),
     var abilites: List<String> = arrayListOf(),
+    var evolvesFrom: String? = "",
+    var evolutionChain: MutableList<MutableList<String>> = mutableListOf(),
     var sprite: String = ""
 )

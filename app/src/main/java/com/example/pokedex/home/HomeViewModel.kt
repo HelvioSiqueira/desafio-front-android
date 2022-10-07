@@ -3,7 +3,7 @@ package com.example.pokedex.home
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.pokedex.PokeList
-import com.example.pokedex.http.PokeListGson
+import com.example.pokedex.http.model.PokeListGson
 import com.example.pokedex.repository.PokeRepository
 import kotlinx.coroutines.launch
 import retrofit2.Response

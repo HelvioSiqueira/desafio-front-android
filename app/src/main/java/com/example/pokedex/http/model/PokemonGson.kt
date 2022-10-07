@@ -1,10 +1,10 @@
-package com.example.pokedex.http
+package com.example.pokedex.http.model
 
 import android.util.Log
 import com.example.pokedex.Pokemon
 import com.google.gson.annotations.SerializedName
 
-data class PokemonJson(
+data class PokemonGson(
     @SerializedName("name")
     var _name: String = "",
     @SerializedName("id")
