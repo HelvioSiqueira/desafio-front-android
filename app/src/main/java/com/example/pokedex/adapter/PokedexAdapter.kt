@@ -38,6 +38,6 @@ class PokedexAdapter(context: Context, pokeList: List<PokeList>) :
     }
 
     class VH(val binding: ItemPokemonBinding) {
-        val textName: TextView = binding.txtNomePokemon
+        val textName: TextView = binding.txtNomeId
     }
 }

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Pokedex</string>
 
+    <!--Descrição de conteudo-->
+    <string name="descricao_pokeImg">Pokemon</string>
+
     <!--Nome das abas-->
     <string name="tab_home">Home</string>
     <string name="tab_pokedex">Pokedex</string>

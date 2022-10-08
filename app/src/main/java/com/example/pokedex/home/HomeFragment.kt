@@ -9,38 +9,49 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokedex.PokeList
 import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexAdapter
+import com.example.pokedex.adapter.PokedexRecycler
+import com.example.pokedex.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListener,
+class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
     MenuItem.OnActionExpandListener{
 
     private val viewModel: HomeViewModel by viewModel()
 
+    private lateinit var binding: FragmentHomeBinding
+
     var pokeList = mutableListOf<PokeList>()
-    private lateinit var pokedexAdapter: PokedexAdapter
+    private lateinit var pokedexAdapter: PokedexRecycler
 
     private var searchView: SearchView? = null
     private var lastSearchTerm: String = ""
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        binding = FragmentHomeBinding.inflate(layoutInflater)
 
         viewModel.onListIsReady.observe(viewLifecycleOwner, Observer { ready->
             if(ready){
                 obterLista()
             }
         })
+
+        return binding.root
     }
 
     private fun obterLista(){
@@ -52,25 +63,24 @@ class HomeFragment : ListFragment(), MenuProvider, SearchView.OnQueryTextListene
         viewModel.searchTerm.value = ""
     }
 
-    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        super.onListItemClick(l, v, position, id)
+    private fun showPokeList(pokeList: List<PokeList>) {
+        pokedexAdapter = PokedexRecycler(requireContext(), pokeList, this::onListItemClick)
 
-        val item = l.getItemAtPosition(position) as PokeList
+        binding.rv.adapter = pokedexAdapter
+
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+
+        binding.rv.layoutManager = layoutManager
+    }
+
+    private fun onListItemClick(itemLista: PokeList) {
 
         val args = Bundle().apply {
-            putString("poke_name", item.name)
+            putString("poke_name", itemLista.name)
         }
 
         Navigation.findNavController(requireActivity(), R.id.navHostFragment)
             .navigate(R.id.action_homeFragment_to_detailsFragment, args)
-
-    }
-    private fun showPokeList(pokeList: List<PokeList>) {
-
-        pokedexAdapter = PokedexAdapter(requireContext(), pokeList)
-
-        val adapter = pokedexAdapter
-        listAdapter = adapter
 
     }
 
