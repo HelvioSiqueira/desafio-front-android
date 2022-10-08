@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.PokeList
 import com.example.pokedex.repository.PokeRepository
+import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 
 class ListPokeViewModel(private val repository: PokeRepository): ViewModel() {
@@ -32,12 +33,19 @@ class ListPokeViewModel(private val repository: PokeRepository): ViewModel() {
             response.body()?.pokeListTypes?.forEach {
                 val pokeList = PokeList()
 
-                pokeList.name = it.pokemon.name
                 pokeList.url = it.pokemon.url
+                pokeList.id = pokeList.url.substringAfterLast("pokemon/").substringBeforeLast("/")
 
-                Log.d("HSV", pokeList.name)
+                if(pokeList.id.toInt() < 10000){
+                    pokeList.name = it.pokemon.name
+                    pokeList.urlImg = "$URL_IMG${pokeList.id}.png"
 
-                pokeListTypes.add(pokeList)
+                    Log.d("HSV", pokeList.toString())
+
+                    pokeListTypes.add(pokeList)
+                }
+
+
             }
 
             onListIsReady.value = true

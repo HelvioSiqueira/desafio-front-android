@@ -9,8 +9,6 @@ import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-//https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/132.png
-
 class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
 
     val error = MutableLiveData<Boolean>()

@@ -2,25 +2,38 @@ package com.example.pokedex.tipes
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokedex.PokeList
 import com.example.pokedex.adapter.PokedexAdapter
+import com.example.pokedex.adapter.PokedexRecycler
+import com.example.pokedex.databinding.FragmentHomeBinding
+import com.example.pokedex.databinding.ItemPokemonBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ListPokeFragment : ListFragment() {
+class ListPokeFragment : Fragment() {
+
+    private lateinit var binding: FragmentHomeBinding
 
     private var pokeUrl = ""
 
     private var pokeList = mutableListOf<PokeList>()
 
-    private lateinit var pokeListAdapter: PokedexAdapter
+    private lateinit var pokeListAdapter: PokedexRecycler
 
     private val viewModel: ListPokeViewModel by viewModel()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentHomeBinding.inflate(layoutInflater)
 
         arguments?.run {
             pokeUrl = getString("pokeUrl").toString().substringAfterLast("v2/")
@@ -33,11 +46,20 @@ class ListPokeFragment : ListFragment() {
                 showPokeList(pokeList)
             }
         })
+
+        return binding.root
     }
 
-    fun showPokeList(pokeList: List<PokeList>) {
-        pokeListAdapter = PokedexAdapter(requireContext(), pokeList)
-        val adapter = pokeListAdapter
-        listAdapter = adapter
+    private fun onListItemClick(itemList: PokeList){
+
+
+    }
+
+    private fun showPokeList(pokeList: List<PokeList>) {
+        pokeListAdapter = PokedexRecycler(requireContext(), pokeList, this::onListItemClick)
+
+        binding.rv.adapter = pokeListAdapter
+
+        binding.rv.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 }
