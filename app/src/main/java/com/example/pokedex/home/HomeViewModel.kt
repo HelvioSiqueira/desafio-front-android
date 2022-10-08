@@ -5,8 +5,11 @@ import androidx.lifecycle.*
 import com.example.pokedex.PokeList
 import com.example.pokedex.http.model.PokeListGson
 import com.example.pokedex.repository.PokeRepository
+import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 import retrofit2.Response
+
+//https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/132.png
 
 class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
 
@@ -31,7 +34,7 @@ class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
     private suspend fun getPokeList() {
         val response = repository.pokeList()
 
-        if(response.isSuccessful){
+        if (response.isSuccessful) {
             toPokeList(response)
         }
     }
@@ -42,10 +45,12 @@ class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
 
             poke.name = it.name
             poke.url = it.url
+            poke.id = poke.url.substringAfterLast("species/").substringBeforeLast("/")
+            poke.urlImg = "$URL_IMG${poke.id}.png"
 
             pokeList.add(poke)
         }
-        if(response.isSuccessful){
+        if (response.isSuccessful) {
             onListIsReady.value = true
         }
     }
