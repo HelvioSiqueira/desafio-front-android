@@ -28,12 +28,15 @@ class TypesViewModel(private val repository: PokeRepository): ViewModel() {
 
         if(response.isSuccessful){
             response.body()?.listTypes?.forEach {
-                val pokeList = PokeList()
 
-                pokeList.name = it.name
-                pokeList.url = it.url
+                if(it.name != "unknown" && it.name != "shadow"){
+                    val pokeList = PokeList()
 
-                listTypes.add(pokeList)
+                    pokeList.name = it.name
+                    pokeList.url = it.url
+
+                    listTypes.add(pokeList)
+                }
             }
 
             onListIsReady.value = true

@@ -59,6 +59,10 @@
     <fragment
         android:id="@+id/listPokeFragment"
         android:name="com.example.pokedex.tipes.ListPokeFragment"
-        android:label="ListPokeFragment" />
+        android:label="ListPokeFragment" >
+        <action
+            android:id="@+id/action_listPokeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 
 </navigation>

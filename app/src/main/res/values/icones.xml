@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="arr">
+
+        <item>@drawable/normal</item>
+        <item>@drawable/luta</item>
+        <item>@drawable/terra</item>
+        <item>@drawable/pedra</item>
+        <item>@drawable/voador</item>
+        <item>@drawable/veneno</item>
+        <item>@drawable/inseto</item>
+        <item>@drawable/fantasma</item>
+        <item>@drawable/metal</item>
+        <item>@drawable/fogo</item>
+        <item>@drawable/agua</item>
+        <item>@drawable/planta</item>
+        <item>@drawable/eletrico</item>
+        <item>@drawable/psiquico</item>
+        <item>@drawable/gelo</item>
+        <item>@drawable/dragao</item>
+        <item>@drawable/sombrio</item>
+        <item>@drawable/fada</item>
+    </array>
+
+
+</resources>

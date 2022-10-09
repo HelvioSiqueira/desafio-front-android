@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokedex.PokeList
+import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexAdapter
 import com.example.pokedex.adapter.PokedexRecycler
 import com.example.pokedex.databinding.FragmentHomeBinding
@@ -42,7 +44,7 @@ class ListPokeFragment : Fragment() {
         pokeList = viewModel.getPokeList(pokeUrl)
 
         viewModel.onListIsReady.observe(viewLifecycleOwner, Observer {
-            if(it){
+            if (it) {
                 showPokeList(pokeList)
             }
         })
@@ -50,8 +52,14 @@ class ListPokeFragment : Fragment() {
         return binding.root
     }
 
-    private fun onListItemClick(itemList: PokeList){
+    private fun onListItemClick(itemList: PokeList) {
 
+        val args = Bundle().apply {
+            putString("poke_name", itemList.name)
+        }
+
+        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
+            .navigate(R.id.action_listPokeFragment_to_detailsFragment, args)
 
     }
 

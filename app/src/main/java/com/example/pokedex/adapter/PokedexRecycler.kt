@@ -3,17 +3,17 @@ package com.example.pokedex.adapter
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokedex.PokeList
-import com.example.pokedex.R
 import com.example.pokedex.databinding.ItemPokemonBinding
 
-class PokedexRecycler(private val context: Context, private val pokeList: List<PokeList>, private val callback: (PokeList) -> Unit): RecyclerView.Adapter<PokedexRecycler.VH>() {
+class PokedexRecycler(
+    private val context: Context,
+    private val pokeList: List<PokeList>,
+    private val callback: (PokeList) -> Unit
+) : RecyclerView.Adapter<PokedexRecycler.VH>() {
 
     private lateinit var binding: ItemPokemonBinding
 
@@ -43,5 +43,5 @@ class PokedexRecycler(private val context: Context, private val pokeList: List<P
 
     override fun getItemCount() = pokeList.size
 
-    inner class VH(val binding: ItemPokemonBinding): RecyclerView.ViewHolder(binding.root)
+    inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
 }
