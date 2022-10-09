@@ -4,21 +4,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.*
-import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokedex.PokeList
 import com.example.pokedex.R
-import com.example.pokedex.adapter.PokedexAdapter
 import com.example.pokedex.adapter.PokedexRecycler
+import com.example.pokedex.adapter.Scroll
 import com.example.pokedex.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +28,7 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
 
     var pokeList = mutableListOf<PokeList>()
     private lateinit var pokedexAdapter: PokedexRecycler
+    private val scroll = Scroll()
 
     private var searchView: SearchView? = null
     private var lastSearchTerm: String = ""
@@ -50,6 +48,9 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
                 obterLista()
             }
         })
+
+        binding.rv.addOnScrollListener(scroll)
+
 
         return binding.root
     }

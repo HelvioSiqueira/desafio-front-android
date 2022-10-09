@@ -8,7 +8,7 @@ import com.example.pokedex.PokeList
 import com.example.pokedex.repository.PokeRepository
 import kotlinx.coroutines.launch
 
-class TypesViewModel(private val repository: PokeRepository): ViewModel() {
+class TypesViewModel(private val repository: PokeRepository) : ViewModel() {
 
     private val listTypes = mutableListOf<PokeList>()
 
@@ -22,14 +22,14 @@ class TypesViewModel(private val repository: PokeRepository): ViewModel() {
 
     fun getListTypes() = listTypes
 
-    private suspend fun getPokeTypes(){
+    private suspend fun getPokeTypes() {
 
         val response = repository.listTypes()
 
-        if(response.isSuccessful){
+        if (response.isSuccessful) {
             response.body()?.listTypes?.forEach {
 
-                if(it.name != "unknown" && it.name != "shadow"){
+                if (it.name != "unknown" && it.name != "shadow") {
                     val pokeList = PokeList()
 
                     pokeList.name = it.name

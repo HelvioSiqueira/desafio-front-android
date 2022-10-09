@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.pokedex.MainActivity
 import com.example.pokedex.PokeList
+import com.example.pokedex.databinding.ActivityMainBinding
 import com.example.pokedex.databinding.ItemPokemonBinding
 
 class PokedexRecycler(
@@ -34,8 +36,6 @@ class PokedexRecycler(
     override fun onBindViewHolder(holder: VH, position: Int) {
         val (name, id, _, urlImg) = pokeList[position]
 
-        Log.d("HSV", "${pokeList[position]}")
-
         Glide.with(context).load(urlImg).into(holder.binding.imgView)
 
         holder.binding.txtNomeId.text = "N°$id $name"
@@ -44,4 +44,20 @@ class PokedexRecycler(
     override fun getItemCount() = pokeList.size
 
     inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
+}
+
+class Scroll(): RecyclerView.OnScrollListener(){
+
+    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+        super.onScrollStateChanged(recyclerView, newState)
+
+        when(newState){
+            RecyclerView.SCROLL_STATE_IDLE -> Log.d("HSV", "Sem scroll")
+            RecyclerView.SCROLL_STATE_DRAGGING -> {
+                Log.d("HSV", "Scrollando")
+
+            }
+            RecyclerView.SCROLL_STATE_SETTLING -> Log.d("HSV", "Scrool configurado")
+        }
+    }
 }

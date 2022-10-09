@@ -1,7 +1,5 @@
 package com.example.pokedex.tipes
 
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +8,7 @@ import com.example.pokedex.repository.PokeRepository
 import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 
-class ListPokeViewModel(private val repository: PokeRepository): ViewModel() {
+class ListPokeViewModel(private val repository: PokeRepository) : ViewModel() {
 
     private val pokeListTypes = mutableListOf<PokeList>()
 
@@ -25,27 +23,23 @@ class ListPokeViewModel(private val repository: PokeRepository): ViewModel() {
         return pokeListTypes
     }
 
-    private suspend fun getPokeListTypesApi(url: String){
+    private suspend fun getPokeListTypesApi(url: String) {
 
         val response = repository.pokeListType(url)
 
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             response.body()?.pokeListTypes?.forEach {
                 val pokeList = PokeList()
 
                 pokeList.url = it.pokemon.url
                 pokeList.id = pokeList.url.substringAfterLast("pokemon/").substringBeforeLast("/")
 
-                if(pokeList.id.toInt() < 10000){
+                if (pokeList.id.toInt() < 10000) {
                     pokeList.name = it.pokemon.name
                     pokeList.urlImg = "$URL_IMG${pokeList.id}.png"
 
-                    Log.d("HSV", pokeList.toString())
-
                     pokeListTypes.add(pokeList)
                 }
-
-
             }
 
             onListIsReady.value = true
