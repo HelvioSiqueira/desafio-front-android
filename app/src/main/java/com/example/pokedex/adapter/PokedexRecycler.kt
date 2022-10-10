@@ -3,13 +3,16 @@ package com.example.pokedex.adapter
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokedex.MainActivity
 import com.example.pokedex.PokeList
+import com.example.pokedex.R
 import com.example.pokedex.databinding.ActivityMainBinding
 import com.example.pokedex.databinding.ItemPokemonBinding
+import com.example.pokedex.home.HomeFragment
 
 class PokedexRecycler(
     private val context: Context,
@@ -46,18 +49,18 @@ class PokedexRecycler(
     inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
 }
 
-class Scroll(): RecyclerView.OnScrollListener(){
+class Scroll(): RecyclerView.OnScrollListener() {
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
 
-        when(newState){
+        when (newState) {
             RecyclerView.SCROLL_STATE_IDLE -> Log.d("HSV", "Sem scroll")
             RecyclerView.SCROLL_STATE_DRAGGING -> {
                 Log.d("HSV", "Scrollando")
-
             }
             RecyclerView.SCROLL_STATE_SETTLING -> Log.d("HSV", "Scrool configurado")
         }
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.pokedex.home
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.pokedex.MainActivity
 import com.example.pokedex.PokeList
 import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexRecycler
@@ -20,7 +22,7 @@ import com.example.pokedex.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
-    MenuItem.OnActionExpandListener{
+    MenuItem.OnActionExpandListener {
 
     private val viewModel: HomeViewModel by viewModel()
 
@@ -28,7 +30,6 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
 
     var pokeList = mutableListOf<PokeList>()
     private lateinit var pokedexAdapter: PokedexRecycler
-    private val scroll = Scroll()
 
     private var searchView: SearchView? = null
     private var lastSearchTerm: String = ""
@@ -43,20 +44,23 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
 
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
-        viewModel.onListIsReady.observe(viewLifecycleOwner, Observer { ready->
-            if(ready){
+        binding.rv.addOnScrollListener(Scroll())
+
+        Log.d("HSV", "Estado: ${binding.rv.scrollState}")
+
+        Log.d("HSV", activity.toString())
+
+        viewModel.onListIsReady.observe(viewLifecycleOwner, Observer { ready ->
+            if (ready) {
                 obterLista()
             }
         })
 
-        binding.rv.addOnScrollListener(scroll)
-
-
         return binding.root
     }
 
-    private fun obterLista(){
-        viewModel.getList().observe(viewLifecycleOwner, Observer { list->
+    private fun obterLista() {
+        viewModel.getList().observe(viewLifecycleOwner, Observer { list ->
             showPokeList(list)
             pokeList = list.toMutableList()
         })
@@ -72,6 +76,10 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
         val layoutManager = GridLayoutManager(requireContext(), 2)
 
         binding.rv.layoutManager = layoutManager
+    }
+
+    interface OnScroll{
+        fun onListScrolled(status: Boolean)
     }
 
     private fun onListItemClick(itemLista: PokeList) {

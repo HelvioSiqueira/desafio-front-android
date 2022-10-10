@@ -6,15 +6,19 @@ import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pokedex.databinding.ActivityMainBinding
+import com.example.pokedex.home.HomeFragment
 
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HomeFragment.OnScroll {
 
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var bindind: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         bindind = ActivityMainBinding.inflate(layoutInflater)
+
+        bindind.bottonNavigation.labelVisibilityMode
 
         setContentView(bindind.root)
 
@@ -32,11 +36,9 @@ class MainActivity: AppCompatActivity() {
         }
     }
 
-    fun apresentarToolbar(status: Boolean) {
+    override fun onListScrolled(status: Boolean) {
 
-        bindind.bottonNavigation.visibility =
-            if (status) View.VISIBLE
-            else View.GONE
     }
+
 
 }
