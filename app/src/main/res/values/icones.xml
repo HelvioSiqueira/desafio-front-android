@@ -5,10 +5,10 @@
 
         <item>@drawable/normal</item>
         <item>@drawable/luta</item>
-        <item>@drawable/terra</item>
-        <item>@drawable/pedra</item>
         <item>@drawable/voador</item>
         <item>@drawable/veneno</item>
+        <item>@drawable/terra</item>
+        <item>@drawable/pedra</item>
         <item>@drawable/inseto</item>
         <item>@drawable/fantasma</item>
         <item>@drawable/metal</item>
