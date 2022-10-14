@@ -2,6 +2,7 @@ package com.example.pokedex
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -11,18 +12,19 @@ import com.example.pokedex.home.HomeFragment
 class MainActivity : AppCompatActivity(), HomeFragment.OnScroll {
 
     private lateinit var navHostFragment: NavHostFragment
-    private lateinit var bindind: ActivityMainBinding
+
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bindind = ActivityMainBinding.inflate(layoutInflater)
+        //bindind.bottonNavigation.labelVisibilityMode
 
-        bindind.bottonNavigation.labelVisibilityMode
+        setContentView(binding.root)
 
-        setContentView(bindind.root)
-
-        initViews(bindind)
+        initViews(binding)
     }
 
     private fun initViews(binding: ActivityMainBinding) {
@@ -38,7 +40,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnScroll {
 
     override fun onListScrolled(status: Boolean) {
 
+        binding.bottonNavigation.visibility =
+            if (status) View.VISIBLE
+            else View.GONE
     }
-
 
 }

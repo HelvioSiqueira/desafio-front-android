@@ -13,14 +13,23 @@
     <string name="action_search">Pesquisar</string>
     <string name="title_activity_home">HomeActivity</string>
 
-    <!---->
+    <!--Texto da caixa de pesquisa-->
     <string name="hint_search">Pesquisa</string>
 
+    <!--Textos dos detalhes do pokemon-->
     <string name="poke_name">N°%1$s %2$s</string>
     <string name="poke_height">Altura: %1$s</string>
     <string name="poke_weight">Peso: %1$s</string>
     <string name="poke_types">Tipos: %1$s</string>
     <string name="poke_abilites">Habilidades: %1$s</string>
+
+    <!--Texto dos status do pokemon-->
+    <string name="txt_hp">Vida</string>
+    <string name="txt_attack">Ataque</string>
+    <string name="txt_sp_attack">Sp Ataque</string>
+    <string name="txt_defense">Defesa</string>
+    <string name="txt_sp_defense">Sp Defesa</string>
+    <string name="txt_speed">Velocidade</string>
 
 
 </resources>

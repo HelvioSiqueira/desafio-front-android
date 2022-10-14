@@ -1,117 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/folder"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        app:layout_constraintEnd_toStartOf="@id/pokeId"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/buba" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/pokeId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/flexo_font"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/pokeName"
-        app:layout_constraintStart_toEndOf="@id/folder"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="#001" />
+        <ImageView
+            android:id="@+id/folder"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:layout_constraintEnd_toStartOf="@id/pokeId"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/buba" />
 
-    <TextView
-        android:id="@+id/pokeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/flexo_font"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/pokeId"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Bubas" />
+        <TextView
+            android:id="@+id/pokeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/flexo_font"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/pokeName"
+            app:layout_constraintStart_toEndOf="@id/folder"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="#001" />
 
-    <TextView
-        android:id="@+id/pokeHeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/flexo_font"
-        app:layout_constraintBottom_toTopOf="@id/pokeWeight"
-        app:layout_constraintStart_toEndOf="@+id/folder"
-        app:layout_constraintTop_toBottomOf="@+id/pokeId"
-        tools:text="Altura: 1.4 m" />
+        <TextView
+            android:id="@+id/pokeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/flexo_font"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/pokeId"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Bubas" />
 
-    <TextView
-        android:id="@+id/pokeWeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/flexo_font"
-        app:layout_constraintBottom_toTopOf="@+id/pokeType"
-        app:layout_constraintStart_toEndOf="@+id/folder"
-        app:layout_constraintTop_toBottomOf="@+id/pokeHeight"
-        tools:text="Peso: 30.2 kl" />
+        <TextView
+            android:id="@+id/pokeHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/flexo_font"
+            app:layout_constraintBottom_toTopOf="@id/pokeWeight"
+            app:layout_constraintStart_toEndOf="@+id/folder"
+            app:layout_constraintTop_toBottomOf="@+id/pokeId"
+            tools:text="Altura: 1.4 m" />
 
-    <TextView
-        android:id="@+id/pokeType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/flexo_font"
-        app:layout_constraintStart_toEndOf="@+id/folder"
-        app:layout_constraintTop_toBottomOf="@+id/pokeWeight"
-        tools:text="Tipos: Grama|Veneno" />
+        <TextView
+            android:id="@+id/pokeWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/flexo_font"
+            app:layout_constraintBottom_toTopOf="@+id/pokeType"
+            app:layout_constraintStart_toEndOf="@+id/folder"
+            app:layout_constraintTop_toBottomOf="@+id/pokeHeight"
+            tools:text="Peso: 30.2 kl" />
 
-    <TextView
-        android:id="@+id/pokeAbilites"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/flexo_font"
-        android:maxLines="4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/folder"
-        app:layout_constraintTop_toBottomOf="@+id/pokeType"
-        tools:text="Habilidades: Overgrow" />
+        <TextView
+            android:id="@+id/pokeType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/flexo_font"
+            app:layout_constraintStart_toEndOf="@+id/folder"
+            app:layout_constraintTop_toBottomOf="@+id/pokeWeight"
+            tools:text="Tipos: Grama|Veneno" />
 
-    <TextView
-        android:id="@+id/txtHp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vida"
-        app:layout_constraintBottom_toBottomOf="@id/bar1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/folder" />
+        <TextView
+            android:id="@+id/pokeAbilites"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/flexo_font"
+            android:maxLines="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/folder"
+            app:layout_constraintTop_toBottomOf="@+id/pokeType"
+            tools:text="Habilidades: Overgrow" />
 
-    <com.example.pokedex.BarStatus
-        android:id="@+id/bar1"
-        android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtHp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/folder" />
+        <TextView
+            android:id="@+id/txtHp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/flexo_font"
+            android:text="@string/txt_hp"
+            app:layout_constraintBottom_toTopOf="@id/txtAttack"
+            app:layout_constraintEnd_toStartOf="@+id/barHp"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/folder" />
 
-    <TextView
-        android:id="@+id/txtAtack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Atack"
-        app:layout_constraintBottom_toBottomOf="@id/bar2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtHp" />
+        <com.example.pokedex.BarStatus
+            android:id="@+id/barHp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="@id/txtHp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txtHp"
+            app:layout_constraintTop_toTopOf="@id/txtHp" />
 
-    <com.example.pokedex.BarStatus
-        android:id="@+id/bar2"
-        android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtAtack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bar1" />
+        <TextView
+            android:id="@+id/txtAttack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:fontFamily="@font/flexo_font"
+            android:text="@string/txt_attack"
+            app:layout_constraintStart_toStartOf="@id/txtHp"
+            app:layout_constraintTop_toBottomOf="@id/txtHp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.example.pokedex.BarStatus
+            android:id="@+id/barAttack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/txtAttack"
+            app:layout_constraintEnd_toEndOf="@id/barHp"
+            app:layout_constraintStart_toStartOf="@+id/barHp"
+            app:layout_constraintTop_toTopOf="@id/txtAttack" />
+
+        <TextView
+            android:id="@+id/txtSpecialAttack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:fontFamily="@font/flexo_font"
+            android:text="@string/txt_sp_attack"
+            app:layout_constraintStart_toStartOf="@id/txtHp"
+            app:layout_constraintTop_toBottomOf="@+id/txtAttack" />
+
+        <com.example.pokedex.BarStatus
+            android:id="@+id/barSpAttack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/txtSpecialAttack"
+            app:layout_constraintEnd_toEndOf="@id/barHp"
+            app:layout_constraintStart_toStartOf="@+id/barHp"
+            app:layout_constraintTop_toTopOf="@id/txtSpecialAttack" />
+
+        <TextView
+            android:id="@+id/txtDefense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:fontFamily="@font/flexo_font"
+            android:text="@string/txt_defense"
+            app:layout_constraintStart_toStartOf="@id/txtHp"
+            app:layout_constraintTop_toBottomOf="@id/txtSpecialAttack" />
+
+        <com.example.pokedex.BarStatus
+            android:id="@+id/barDefense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/txtDefense"
+            app:layout_constraintEnd_toEndOf="@id/barHp"
+            app:layout_constraintStart_toStartOf="@+id/barHp"
+            app:layout_constraintTop_toTopOf="@id/txtDefense" />
+
+        <TextView
+            android:id="@+id/txtSpDefense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:fontFamily="@font/flexo_font"
+            android:text="@string/txt_sp_defense"
+            app:layout_constraintStart_toStartOf="@id/txtHp"
+            app:layout_constraintTop_toBottomOf="@id/txtDefense" />
+
+        <com.example.pokedex.BarStatus
+            android:id="@+id/barSpDefense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/txtSpDefense"
+            app:layout_constraintEnd_toEndOf="@id/barHp"
+            app:layout_constraintStart_toStartOf="@+id/barHp"
+            app:layout_constraintTop_toTopOf="@id/txtSpDefense" />
+
+        <TextView
+            android:id="@+id/txtSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:fontFamily="@font/flexo_font"
+            android:text="@string/txt_speed"
+            app:layout_constraintStart_toStartOf="@id/txtHp"
+            app:layout_constraintTop_toBottomOf="@id/txtSpDefense" />
+
+        <com.example.pokedex.BarStatus
+            android:id="@+id/barSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/txtSpeed"
+            app:layout_constraintEnd_toEndOf="@id/barHp"
+            app:layout_constraintStart_toStartOf="@+id/barHp"
+            app:layout_constraintTop_toTopOf="@id/txtSpeed" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/estagio1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.33">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_sp_defense"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teste"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teste"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/estagio2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.33">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teste"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teste"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teste"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/estagio3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.33">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+

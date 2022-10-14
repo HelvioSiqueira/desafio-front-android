@@ -3,9 +3,11 @@ package com.example.pokedex
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import kotlin.math.round
 
 class BarStatus @JvmOverloads constructor(
     context: Context,
@@ -13,55 +15,71 @@ class BarStatus @JvmOverloads constructor(
     style: Int = 0
 ) : View(context, attributeSet, style) {
 
-    private var tamanho: Int = 0
+    private var tamStatus: Int = 0
+    private var largura = 0
+    private var altura = 80
     private lateinit var paint: Paint
-    private val rectF: RectF = RectF()
-    private lateinit var imagem: Bitmap
+
+    init {
+        val styledAtts = context.obtainStyledAttributes(attributeSet, R.styleable.BarStatus)
+        styledAtts.recycle()
+    }
+
+    fun setTamStatus(tamStatusEnviado: Int) {
+        tamStatus = tamStatusEnviado
+        invalidate()
+    }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
         paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Paint.Style.FILL
-        imagem = BitmapFactory.decodeResource(resources, R.drawable.test123)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        tamanho = when(layoutParams.width){
+        val widthPixels = resources.displayMetrics.widthPixels
+        val heightPixels = resources.displayMetrics.heightPixels
 
-            ViewGroup.LayoutParams.WRAP_CONTENT ->{
-                (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48F, resources.displayMetrics).toInt())
-            }
-
-            ViewGroup.LayoutParams.MATCH_PARENT ->{
-                Math.min(View.MeasureSpec.getSize(widthMeasureSpec), View.MeasureSpec.getSize(heightMeasureSpec))
-            }
-
-            else -> layoutParams.width
+        altura = if(heightPixels > widthPixels){
+            round(heightPixels * 0.04).toInt()
+        } else {
+            round(heightPixels * 0.08).toInt()
         }
 
-        setMeasuredDimension(tamanho + 810, tamanho + 20)
+        largura = round(widthPixels * 0.6).toInt()
+
+
+        setMeasuredDimension(largura, altura)
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-        for(l in 0..720 step 50){
+        var voltas = 0
 
-            val y = l + 0F
-            val x = l + 100F
+        for (l in 0 until largura - 20 step largura / 15) {
 
-            paint.color = Color.RED
-            paint.strokeWidth = 5F
+            voltas++
 
-            //canvas?.drawLine(0F + x, 0F, 0F + x, 100F, paint)
+            val alturaBarra = altura.toFloat()
+            val posicaoBarra = l + 20F
+
+            paint.color = Color.parseColor("#e7e5ea")
+
+            if (voltas <= tamStatus) {
+                paint.color = Color.parseColor("#30a7d7")
+            }
+
+            paint.strokeWidth = largura * 0.04F
+
+            canvas?.drawLine(posicaoBarra, 0F, posicaoBarra, alturaBarra, paint)
             //canvas?.drawLine(x, y, x + 30, y, paint)
 
-            canvas?.drawBitmap(imagem, x + 0F, 50F, paint)
+            //canvas?.drawBitmap(imagem, x + 0F, 50F, paint)
 
         }
-
     }
 }

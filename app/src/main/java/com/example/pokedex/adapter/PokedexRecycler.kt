@@ -58,6 +58,7 @@ class Scroll(): RecyclerView.OnScrollListener() {
             RecyclerView.SCROLL_STATE_IDLE -> Log.d("HSV", "Sem scroll")
             RecyclerView.SCROLL_STATE_DRAGGING -> {
                 Log.d("HSV", "Scrollando")
+                //MainActivity().onListScrolled(false)
             }
             RecyclerView.SCROLL_STATE_SETTLING -> Log.d("HSV", "Scrool configurado")
         }
