@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -38,57 +39,47 @@ class DetailsFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.getPokemon(pokeName).observe(viewLifecycleOwner, Observer {
-                Log.d("HSV", it.toString())
+            viewModel.getPokemon(pokeName).observe(viewLifecycleOwner, Observer { pokemon ->
+                Log.d("HSV", pokemon.toString())
 
-                Glide.with(this@DetailsFragment).load(it.sprite).into(binding.folder)
-                binding.pokeName.text = resources.getString(R.string.poke_name, it.id, it.name)
-                binding.pokeHeight.text = resources.getString(R.string.poke_height, it.height)
-                binding.pokeWeight.text = resources.getString(R.string.poke_weight, it.weight)
+                Glide.with(this@DetailsFragment).load(pokemon.sprite).into(binding.folder)
+                binding.pokeName.text =
+                    resources.getString(R.string.poke_name, pokemon.id, pokemon.name)
+                binding.pokeHeight.text = resources.getString(R.string.poke_height, pokemon.height)
+                binding.pokeWeight.text = resources.getString(R.string.poke_weight, pokemon.weight)
                 binding.pokeType.text = resources.getString(
                     R.string.poke_types,
-                    it.types.joinToString(separator = ", ")
+                    pokemon.types.joinToString(separator = ", ")
                 )
                 binding.pokeAbilites.text = resources.getString(
                     R.string.poke_abilites,
-                    it.abilites.joinToString(separator = ", ")
+                    pokemon.abilites.joinToString(separator = ", ")
                 )
 
                 //stats=[{hp=45}, {attack=49}, {defense=49}, {special-attack=65}, {special-defense=65}, {speed=45}]
 
-                binding.barHp.setTamStatus(it.stats[0].getValue("hp") / 10)
-                binding.barAttack.setTamStatus(it.stats[1].getValue("attack") / 10)
-                binding.barDefense.setTamStatus(it.stats[2].getValue("defense") / 10)
-                binding.barSpAttack.setTamStatus(it.stats[3].getValue("special-attack") / 10)
-                binding.barSpDefense.setTamStatus(it.stats[4].getValue("special-defense") / 10)
-                binding.barSpeed.setTamStatus(it.stats[5].getValue("speed") / 10)
+                fillStatus(pokemon.stats)
 
-                var maxEvolutions = 0
+                val maxEvolutions = viewModel.maxEvolutionsChain(pokemon.evolutionChain)
 
-                it.evolutionChain.forEach { evo ->
-                    evo.run {
-                        if (count() > maxEvolutions) {
-                            maxEvolutions = count()
-                        }
-                    }
-                }
-
-                val quantStages = it.evolutionChain.count { it.isNotEmpty() }
-
-
-                val first = "$URL_IMG${it.evolutionChain[0][0].substringAfterLast("|")}"
+                val quantStages = pokemon.evolutionChain.count { it.isNotEmpty() }
 
                 val arrayLayouts = arrayOf(binding.estagio1, binding.estagio2, binding.estagio3)
 
-                for (x in 0 until quantStages) {
+                for ((index, element) in pokemon.evolutionChain.withIndex()) {
+                    for (y in 0 until element.count()) {
+                        val img = ImageView(requireContext())
 
-                    val img = ImageView(requireContext())
+                        img.setOnClickListener {
+                            showNameEvolution(pokemon.evolutionChain[index][y])
+                        }
 
-                    Glide.with(this@DetailsFragment)
-                        .load("$URL_IMG${it.evolutionChain[x][0].substringAfterLast("|")}.png")
-                        .apply(RequestOptions.overrideOf(250, 250)).into(img)
+                        Glide.with(this@DetailsFragment)
+                            .load("$URL_IMG${pokemon.evolutionChain[index][y].substringAfterLast("|")}.png")
+                            .apply(RequestOptions.overrideOf(250, 250)).into(img)
 
-                    arrayLayouts[x].addView(img)
+                        arrayLayouts[index].addView(img)
+                    }
                 }
 
                 when (quantStages) {
@@ -102,12 +93,28 @@ class DetailsFragment : Fragment() {
                     }
                 }
 
-                Log.d("HSV", "$maxEvolutions, $quantStages, $first")
+                Log.d("HSV", "$maxEvolutions, $quantStages")
 
 
             })
         }
 
         return binding.root
+    }
+
+    private fun fillStatus(stats: List<Map<String, Int>>) {
+
+        binding.barHp.setTamStatus(stats[0].getValue("hp") / 10)
+        binding.barAttack.setTamStatus(stats[1].getValue("attack") / 10)
+        binding.barDefense.setTamStatus(stats[2].getValue("defense") / 10)
+        binding.barSpAttack.setTamStatus(stats[3].getValue("special-attack") / 10)
+        binding.barSpDefense.setTamStatus(stats[4].getValue("special-defense") / 10)
+        binding.barSpeed.setTamStatus(stats[5].getValue("speed") / 10)
+    }
+
+    private fun showNameEvolution(nameEvolution: String){
+        val formatedName = nameEvolution.substringBeforeLast("|").replaceFirstChar { it.uppercase() }
+
+        Toast.makeText(requireContext(), formatedName, Toast.LENGTH_LONG).show()
     }
 }

@@ -134,4 +134,16 @@ class DetailsViewModel(private val repository: PokeRepository) : ViewModel() {
         }
         return MutableLiveData(pokemon)
     }
+
+    fun maxEvolutionsChain(evolutionChain: List<List<String>>){
+        var maxEvolutions = 0
+
+        evolutionChain.forEach { evo ->
+            evo.run {
+                if (count() > maxEvolutions) {
+                    maxEvolutions = count()
+                }
+            }
+        }
+    }
 }
