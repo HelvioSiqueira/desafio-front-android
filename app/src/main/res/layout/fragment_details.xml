@@ -87,10 +87,23 @@
             tools:text="Habilidades: Overgrow" />
 
         <TextView
+            android:id="@+id/txtStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/flexo_font"
+            android:text="@string/txt_stats"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/txtHp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/folder" />
+
+        <TextView
             android:id="@+id/txtHp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/flexo_font"
             android:text="@string/txt_hp"
@@ -98,7 +111,7 @@
             app:layout_constraintEnd_toStartOf="@+id/barHp"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/folder" />
+            app:layout_constraintTop_toBottomOf="@+id/txtStats" />
 
         <com.example.pokedex.BarStatus
             android:id="@+id/barHp"
@@ -206,16 +219,30 @@
             app:layout_constraintStart_toStartOf="@+id/barHp"
             app:layout_constraintTop_toTopOf="@id/txtSpeed" />
 
+        <TextView
+            android:id="@+id/txtEvolutions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/flexo_font"
+            android:text="@string/txt_evolutions"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/layoutEvolutions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barSpeed" />
+
         <LinearLayout
+            android:id="@+id/layoutEvolutions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             android:baselineAligned="false"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/barSpeed"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtEvolutions">
 
             <LinearLayout
                 android:id="@+id/estagio1"
