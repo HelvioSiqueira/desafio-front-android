@@ -35,5 +35,7 @@ data class EvolveToThird(
 
 data class SpeciesName(
     @SerializedName("name")
-    val name: String = ""
+    val name: String = "",
+    @SerializedName("url")
+    val url: String = ""
 )

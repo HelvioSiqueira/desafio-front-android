@@ -75,6 +75,25 @@ class DetailsFragment : Fragment() {
                         }
                     }
                 }
+
+                val img1 = ImageView(requireContext())
+                val img2 = ImageView(requireContext())
+                val img3 = ImageView(requireContext())
+                val img4 = ImageView(requireContext())
+
+                Glide.with(this@DetailsFragment).load(it.sprite).into(img1)
+                Glide.with(this@DetailsFragment).load(it.sprite).into(img2)
+                Glide.with(this@DetailsFragment).load(it.sprite).into(img3)
+                Glide.with(this@DetailsFragment).load(it.sprite).into(img4)
+
+                binding.estagio1.addView(img1)
+                binding.estagio2.addView(img2)
+
+                //binding.estagio1.addView(img3)
+                binding.estagio3.addView(img4)
+
+
+
             })
         }
 

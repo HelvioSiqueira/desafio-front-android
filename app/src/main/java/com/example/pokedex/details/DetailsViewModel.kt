@@ -45,19 +45,24 @@ class DetailsViewModel(private val repository: PokeRepository) : ViewModel() {
         val allEvolutions = mutableListOf<MutableList<String>>()
 
         //Obtem a forma inicial do pokemon
-        val initial = responsePokeEvolution.body()?.chain?.species?.name
+        var initial = ""
+
+        responsePokeEvolution.body()?.chain?.species?.run {
+            initial = name
+            initial += "|${url.substringAfterLast("pokemon-species/").substringBeforeLast("/")}"
+        }
 
         allEvolutions.add(mutableListOf(initial!!))
 
         val evolutionFirst = mutableListOf<String>()
         val evolutionSecond = mutableListOf<String>()
 
-        if(responsePokeEvolution.isSuccessful){
-            responsePokeEvolution.body()?.chain?.evolvesToFirst?.forEach { it_first->
+        if (responsePokeEvolution.isSuccessful) {
+            responsePokeEvolution.body()?.chain?.evolvesToFirst?.forEach { it_first ->
 
                 evolutionFirst.add(getFirstEvolution(it_first))
 
-                it_first.evolvesToSecond?.forEach { it_second->
+                it_first.evolvesToSecond?.forEach { it_second ->
                     evolutionSecond.add(getSecondEvolution(it_second))
                 }
             }
@@ -74,8 +79,12 @@ class DetailsViewModel(private val repository: PokeRepository) : ViewModel() {
 
         var name = ""
 
-        if(first != null){
+        if (first != null) {
             name = first.species.name
+
+            name += "|${
+                first.species.url.substringAfterLast("pokemon-species/").substringBeforeLast("/")
+            }"
         }
 
         return name
@@ -86,8 +95,12 @@ class DetailsViewModel(private val repository: PokeRepository) : ViewModel() {
 
         var name = ""
 
-        if(second != null){
+        if (second != null) {
             name = second.species.name
+
+            name += "|${
+                second.species.url.substringAfterLast("pokemon-species/").substringBeforeLast("/")
+            }"
         }
 
         return name

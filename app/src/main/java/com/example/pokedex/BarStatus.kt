@@ -51,7 +51,6 @@ class BarStatus @JvmOverloads constructor(
 
         largura = round(widthPixels * 0.6).toInt()
 
-
         setMeasuredDimension(largura, altura)
     }
 
@@ -76,7 +75,6 @@ class BarStatus @JvmOverloads constructor(
             paint.strokeWidth = largura * 0.04F
 
             canvas?.drawLine(posicaoBarra, 0F, posicaoBarra, alturaBarra, paint)
-            //canvas?.drawLine(x, y, x + 30, y, paint)
 
             //canvas?.drawBitmap(imagem, x + 0F, 50F, paint)
 
