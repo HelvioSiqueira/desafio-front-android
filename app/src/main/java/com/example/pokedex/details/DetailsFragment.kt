@@ -1,24 +1,21 @@
 package com.example.pokedex.details
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.pokedex.R
 import com.example.pokedex.databinding.FragmentDetailsBinding
+import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.max
 
 class DetailsFragment : Fragment() {
 
@@ -66,32 +63,46 @@ class DetailsFragment : Fragment() {
                 binding.barSpDefense.setTamStatus(it.stats[4].getValue("special-defense") / 10)
                 binding.barSpeed.setTamStatus(it.stats[5].getValue("speed") / 10)
 
-                var max = 0
+                var maxEvolutions = 0
 
                 it.evolutionChain.forEach { evo ->
                     evo.run {
-                        if (count() > max) {
-                            max = count()
+                        if (count() > maxEvolutions) {
+                            maxEvolutions = count()
                         }
                     }
                 }
 
-                val img1 = ImageView(requireContext())
-                val img2 = ImageView(requireContext())
-                val img3 = ImageView(requireContext())
-                val img4 = ImageView(requireContext())
+                val quantStages = it.evolutionChain.count { it.isNotEmpty() }
 
-                Glide.with(this@DetailsFragment).load(it.sprite).into(img1)
-                Glide.with(this@DetailsFragment).load(it.sprite).into(img2)
-                Glide.with(this@DetailsFragment).load(it.sprite).into(img3)
-                Glide.with(this@DetailsFragment).load(it.sprite).into(img4)
 
-                binding.estagio1.addView(img1)
-                binding.estagio2.addView(img2)
+                val first = "$URL_IMG${it.evolutionChain[0][0].substringAfterLast("|")}"
 
-                //binding.estagio1.addView(img3)
-                binding.estagio3.addView(img4)
+                val arrayLayouts = arrayOf(binding.estagio1, binding.estagio2, binding.estagio3)
 
+                for (x in 0 until quantStages) {
+
+                    val img = ImageView(requireContext())
+
+                    Glide.with(this@DetailsFragment)
+                        .load("$URL_IMG${it.evolutionChain[x][0].substringAfterLast("|")}.png")
+                        .apply(RequestOptions.overrideOf(250, 250)).into(img)
+
+                    arrayLayouts[x].addView(img)
+                }
+
+                when (quantStages) {
+                    1 -> {
+                        binding.estagio2.visibility = View.GONE
+                        binding.estagio3.visibility = View.GONE
+                    }
+
+                    2 -> {
+                        binding.estagio3.visibility = View.GONE
+                    }
+                }
+
+                Log.d("HSV", "$maxEvolutions, $quantStages, $first")
 
 
             })

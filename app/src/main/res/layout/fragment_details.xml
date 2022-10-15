@@ -200,6 +200,7 @@
             android:id="@+id/barSpeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="@id/txtSpeed"
             app:layout_constraintEnd_toEndOf="@id/barHp"
             app:layout_constraintStart_toStartOf="@+id/barHp"
