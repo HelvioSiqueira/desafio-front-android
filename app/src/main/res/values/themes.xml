@@ -24,4 +24,5 @@
         <attr name="tamStatus" format="integer"/>
         <attr name="barColor" format="color"/>
     </declare-styleable>
+
 </resources>

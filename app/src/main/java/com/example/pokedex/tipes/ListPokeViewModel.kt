@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.PokeList
-import com.example.pokedex.repository.PokeRepository
+import com.example.pokedex.repository.http.HttpRepository
 import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 
-class ListPokeViewModel(private val repository: PokeRepository) : ViewModel() {
+class ListPokeViewModel(private val repository: HttpRepository) : ViewModel() {
 
     private val pokeListTypes = mutableListOf<PokeList>()
 

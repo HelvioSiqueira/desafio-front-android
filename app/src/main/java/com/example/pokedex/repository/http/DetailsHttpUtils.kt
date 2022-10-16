@@ -1,8 +1,8 @@
-package com.example.pokedex.http
+package com.example.pokedex.repository.http
 
-import com.example.pokedex.http.model.EvolvesToFirst
-import com.example.pokedex.http.model.EvolvesToSecond
-import com.example.pokedex.http.model.PokeEvolutionChain
+import com.example.pokedex.repository.http.model.EvolvesToFirst
+import com.example.pokedex.repository.http.model.EvolvesToSecond
+import com.example.pokedex.repository.http.model.PokeEvolutionChain
 import retrofit2.Response
 
 object DetailsHttpUtils {
@@ -20,7 +20,7 @@ object DetailsHttpUtils {
             initial += "|${url.substringAfterLast("pokemon-species/").substringBeforeLast("/")}"
         }
 
-        allEvolutions.add(mutableListOf(initial!!))
+        allEvolutions.add(mutableListOf(initial))
 
         val evolutionFirst = mutableListOf<String>()
         val evolutionSecond = mutableListOf<String>()

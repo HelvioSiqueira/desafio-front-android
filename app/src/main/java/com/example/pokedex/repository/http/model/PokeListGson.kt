@@ -1,4 +1,4 @@
-package com.example.pokedex.http.model
+package com.example.pokedex.repository.http.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

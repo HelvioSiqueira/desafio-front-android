@@ -15,7 +15,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.pokedex.Pokemon
 import com.example.pokedex.R
 import com.example.pokedex.databinding.FragmentDetailsBinding
-import com.example.pokedex.http.model.PokeEvolutionChain
 import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,6 +47,12 @@ class DetailsFragment : Fragment() {
                 fillStatus(pokemon.stats)
                 fillEvolutions(binding, pokemon.evolutionChain)
             })
+        }
+
+        binding.iconFav.setOnClickListener {
+            Log.d("HSV", binding.iconFav.isEnabled.toString())
+
+            binding.iconFav.isEnabled = !binding.iconFav.isEnabled
         }
 
         return binding.root

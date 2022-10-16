@@ -1,7 +1,5 @@
-package com.example.pokedex.http.model
+package com.example.pokedex.repository.http.model
 
-import android.util.Log
-import com.example.pokedex.Pokemon
 import com.google.gson.annotations.SerializedName
 
 data class PokemonGson(

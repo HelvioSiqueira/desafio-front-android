@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,14 +11,30 @@
         android:layout_height="match_parent"
         android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/folder"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+        <FrameLayout
+            android:id="@+id/frameFolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/pokeId"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/buba" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/folder"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                tools:src="@drawable/buba" />
+
+
+            <ImageView
+                android:id="@+id/iconFav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_baseline_favorite_border_24"/>
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/pokeId"
@@ -28,7 +43,7 @@
             android:fontFamily="@font/flexo_font"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@id/pokeName"
-            app:layout_constraintStart_toEndOf="@id/folder"
+            app:layout_constraintStart_toEndOf="@id/frameFolder"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="#001" />
 
@@ -49,7 +64,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/flexo_font"
             app:layout_constraintBottom_toTopOf="@id/pokeWeight"
-            app:layout_constraintStart_toEndOf="@+id/folder"
+            app:layout_constraintStart_toEndOf="@+id/frameFolder"
             app:layout_constraintTop_toBottomOf="@+id/pokeId"
             tools:text="Altura: 1.4 m" />
 
@@ -60,7 +75,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/flexo_font"
             app:layout_constraintBottom_toTopOf="@+id/pokeType"
-            app:layout_constraintStart_toEndOf="@+id/folder"
+            app:layout_constraintStart_toEndOf="@+id/frameFolder"
             app:layout_constraintTop_toBottomOf="@+id/pokeHeight"
             tools:text="Peso: 30.2 kl" />
 
@@ -70,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/flexo_font"
-            app:layout_constraintStart_toEndOf="@+id/folder"
+            app:layout_constraintStart_toEndOf="@+id/frameFolder"
             app:layout_constraintTop_toBottomOf="@+id/pokeWeight"
             tools:text="Tipos: Grama|Veneno" />
 
@@ -82,7 +97,7 @@
             android:fontFamily="@font/flexo_font"
             android:maxLines="4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/folder"
+            app:layout_constraintStart_toEndOf="@+id/frameFolder"
             app:layout_constraintTop_toBottomOf="@+id/pokeType"
             tools:text="Habilidades: Overgrow" />
 
@@ -97,7 +112,7 @@
             app:layout_constraintBottom_toTopOf="@id/txtHp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/folder" />
+            app:layout_constraintTop_toBottomOf="@+id/frameFolder" />
 
         <TextView
             android:id="@+id/txtHp"

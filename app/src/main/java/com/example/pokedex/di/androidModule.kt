@@ -3,8 +3,10 @@ package com.example.pokedex.di
 import com.example.pokedex.util.API
 import com.example.pokedex.details.DetailsViewModel
 import com.example.pokedex.home.HomeViewModel
-import com.example.pokedex.http.Endpoint
-import com.example.pokedex.repository.PokeRepository
+import com.example.pokedex.repository.http.Endpoint
+import com.example.pokedex.repository.http.HttpRepository
+import com.example.pokedex.repository.room.PokeDatabase
+import com.example.pokedex.repository.room.RoomRepository
 import com.example.pokedex.tipes.ListPokeViewModel
 import com.example.pokedex.tipes.TypesViewModel
 import com.google.gson.GsonBuilder
@@ -19,7 +21,7 @@ val androidModule = module {
     single { this }
 
     single {
-        PokeRepository(api = get()) as PokeRepository
+        HttpRepository(api = get()) as HttpRepository
     }
 
     viewModel{
@@ -39,6 +41,10 @@ val androidModule = module {
     }
 
     single {
+        RoomRepository(PokeDatabase.getDatabase(context = get()))
+    }
+
+    single {
 
         val logging = HttpLoggingInterceptor()
 
@@ -55,8 +61,6 @@ val androidModule = module {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(httpClient.build())
             .build()
-
-
 
         retrofit.create(Endpoint::class.java)
     }

@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/drawable/custom_ripple.xml" value="0.202" />
+        <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.332" />
         <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.332" />
         <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/drawable/rounded_shape.xml" value="0.332" />
         <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/drawable/selector_list_item.xml" value="0.332" />
         <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/drawable/teste.xml" value="0.181" />
+        <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/layout-v31/fragment_details.xml" value="0.20052083333333334" />
         <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/layout/activity_searchable.xml" value="0.38697916666666665" />
         <entry key="..\:/Helvio/AndroidStudio/AndroidStudioProjects/desafio-front-android/app/src/main/res/layout/fragment_details.xml" value="0.33" />

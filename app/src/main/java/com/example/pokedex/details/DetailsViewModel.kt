@@ -3,12 +3,12 @@ package com.example.pokedex.details
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokedex.Pokemon
-import com.example.pokedex.http.DetailsHttpUtils
-import com.example.pokedex.http.model.*
-import com.example.pokedex.repository.PokeRepository
+import com.example.pokedex.repository.http.DetailsHttpUtils
+import com.example.pokedex.repository.http.model.*
+import com.example.pokedex.repository.http.HttpRepository
 import retrofit2.Response
 
-class DetailsViewModel(private val repository: PokeRepository) : ViewModel() {
+class DetailsViewModel(private val repository: HttpRepository) : ViewModel() {
 
     lateinit var pokemon: Pokemon
     val error = MutableLiveData<Boolean>()
@@ -39,7 +39,6 @@ class DetailsViewModel(private val repository: PokeRepository) : ViewModel() {
 
         return DetailsHttpUtils.getEvolutions(response)
     }
-
 
     private suspend fun toPokemon(
         responsePokemonGson: Response<PokemonGson>, responsePokeEvolution: Response<PokeEvolution>

@@ -1,8 +1,6 @@
-package com.example.pokedex.repository
+package com.example.pokedex.repository.http
 
-import com.example.pokedex.http.Endpoint
-
-class PokeRepository(private val api: Endpoint) {
+class HttpRepository(private val api: Endpoint) {
 
     suspend fun pokeList() = api.getPokeList()
     suspend fun pokeData(nomePoke: String) = api.getPokemon(nomePoke)

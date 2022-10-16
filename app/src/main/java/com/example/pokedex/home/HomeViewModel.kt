@@ -1,15 +1,14 @@
 package com.example.pokedex.home
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.pokedex.PokeList
-import com.example.pokedex.http.model.PokeListGson
-import com.example.pokedex.repository.PokeRepository
+import com.example.pokedex.repository.http.model.PokeListGson
+import com.example.pokedex.repository.http.HttpRepository
 import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class HomeViewModel(private val repository: PokeRepository) : ViewModel() {
+class HomeViewModel(private val repository: HttpRepository) : ViewModel() {
 
     val error = MutableLiveData<Boolean>()
 
