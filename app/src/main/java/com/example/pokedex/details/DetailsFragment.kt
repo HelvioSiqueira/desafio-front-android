@@ -10,8 +10,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.pokedex.PokeList
 import com.example.pokedex.Pokemon
 import com.example.pokedex.R
 import com.example.pokedex.databinding.FragmentDetailsBinding
@@ -24,6 +27,8 @@ class DetailsFragment : Fragment() {
     private val viewModel: DetailsViewModel by viewModel()
 
     private lateinit var pokeName: String
+
+    private var pokemonDetails = Pokemon()
 
     private lateinit var binding: FragmentDetailsBinding
 
@@ -43,19 +48,50 @@ class DetailsFragment : Fragment() {
             viewModel.getPokemon(pokeName).observe(viewLifecycleOwner, Observer { pokemon ->
                 Log.d("HSV", pokemon.toString())
 
+                pokemonDetails = pokemon
+
                 fillDetails(binding, pokemon)
                 fillStatus(pokemon.stats)
                 fillEvolutions(binding, pokemon.evolutionChain)
+
+                viewModel.fillComplete.value = true
             })
         }
 
-        binding.iconFav.setOnClickListener {
-            Log.d("HSV", binding.iconFav.isEnabled.toString())
+        viewModel.fillComplete.observe(viewLifecycleOwner, Observer { fill->
+            if(fill){
+                if(viewModel.checar(pokemonDetails.id.toInt()) == 1){
+                    binding.iconFav.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    binding.iconFav.isEnabled = false
+                } else {
+                    binding.iconFav.setOnClickListener {
 
-            binding.iconFav.isEnabled = !binding.iconFav.isEnabled
-        }
+                        val pokeList = PokeList()
+
+                        pokeList.id = pokemonDetails.id
+                        pokeList.name = pokemonDetails.name
+                        pokeList.url = "$"
+                        pokeList.urlImg = pokemonDetails.sprite
+
+                        viewModel.salvarNaPokedex(pokeList)
+                        binding.iconFav.setImageResource(R.drawable.ic_baseline_favorite_24)
+                        binding.iconFav.isEnabled = false
+
+                        Log.d("HSV", "Salvo")
+                    }
+                }
+            }
+        })
 
         return binding.root
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        Log.d("HSV", "Details detach")
+
+
     }
 
     private fun fillEvolutions(binding: FragmentDetailsBinding, evolutionChain: List<List<String>>){

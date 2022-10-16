@@ -2,7 +2,10 @@ package com.example.pokedex.di
 
 import com.example.pokedex.util.API
 import com.example.pokedex.details.DetailsViewModel
+import com.example.pokedex.favorites.PokedexViewModel
 import com.example.pokedex.home.HomeViewModel
+import com.example.pokedex.repository.PokedexRepository
+import com.example.pokedex.repository.http.DetailsHttpUtils
 import com.example.pokedex.repository.http.Endpoint
 import com.example.pokedex.repository.http.HttpRepository
 import com.example.pokedex.repository.room.PokeDatabase
@@ -24,6 +27,10 @@ val androidModule = module {
         HttpRepository(api = get()) as HttpRepository
     }
 
+    single {
+        RoomRepository(PokeDatabase.getDatabase(context = get())) as PokedexRepository
+    }
+
     viewModel{
         HomeViewModel(repository = get())
     }
@@ -32,16 +39,16 @@ val androidModule = module {
         DetailsViewModel(repository = get())
     }
 
+    viewModel {
+        PokedexViewModel(repository = get())
+    }
+
     viewModel{
         TypesViewModel(repository = get())
     }
 
     viewModel {
         ListPokeViewModel(repository = get())
-    }
-
-    single {
-        RoomRepository(PokeDatabase.getDatabase(context = get()))
     }
 
     single {
@@ -63,5 +70,9 @@ val androidModule = module {
             .build()
 
         retrofit.create(Endpoint::class.java)
+    }
+
+    single {
+        DetailsHttpUtils(api = get())
     }
 }

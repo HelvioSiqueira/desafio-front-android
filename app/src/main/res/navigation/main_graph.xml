@@ -25,7 +25,8 @@
         tools:layout="@layout/fragment_pokedex">
         <action
             android:id="@+id/action_pokedexFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:launchSingleTop="false" />
     </fragment>
 
     <fragment
