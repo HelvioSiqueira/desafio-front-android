@@ -16,6 +16,7 @@ import com.example.pokedex.adapter.PokedexAdapter
 import com.example.pokedex.adapter.PokedexRecycler
 import com.example.pokedex.databinding.FragmentHomeBinding
 import com.example.pokedex.databinding.ItemPokemonBinding
+import com.example.pokedex.home.HomeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListPokeFragment : Fragment() {
@@ -54,12 +55,10 @@ class ListPokeFragment : Fragment() {
 
     private fun onListItemClick(itemList: PokeList) {
 
-        val args = Bundle().apply {
-            putString("poke_name", itemList.name)
+        if(activity is HomeFragment.OnPokemonClickListener){
+            val listener = activity as HomeFragment.OnPokemonClickListener
+            listener.onPokemonClick(itemList.name)
         }
-
-        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-            .navigate(R.id.action_listPokeFragment_to_detailsFragment, args)
 
     }
 

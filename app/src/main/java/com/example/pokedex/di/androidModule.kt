@@ -1,5 +1,6 @@
 package com.example.pokedex.di
 
+import com.example.pokedex.MainActivity
 import com.example.pokedex.util.API
 import com.example.pokedex.details.DetailsViewModel
 import com.example.pokedex.favorites.PokedexViewModel
@@ -23,8 +24,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 val androidModule = module {
     single { this }
 
+    //Será removida quando suas funções passarem todas pro DetailsHttpUtils
     single {
         HttpRepository(api = get()) as HttpRepository
+    }
+
+    single {
+        DetailsHttpUtils(api = get())
     }
 
     single {
@@ -70,9 +76,5 @@ val androidModule = module {
             .build()
 
         retrofit.create(Endpoint::class.java)
-    }
-
-    single {
-        DetailsHttpUtils(api = get())
     }
 }

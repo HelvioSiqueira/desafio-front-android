@@ -5,13 +5,15 @@ import com.example.pokedex.Pokemon
 import com.example.pokedex.repository.http.model.*
 import retrofit2.Response
 
+
+//Transformada para classe e passado o Endpoint como parametro
 class DetailsHttpUtils(private val api: Endpoint) {
 
     //Passa os dois responses para toPokemon
     //O responseGetPokeData() obtem o detalhes do pokemon no https://pokeapi.co/api/v2/pokemon/
     //O responsePokeEvolution() obtem a url(evolution_chain) e evolução anterior(evolves_from_species)
     //no https://pokeapi.co/api/v2/pokemon-species/
-    suspend fun getPokemon(pokeName: String): MutableLiveData<Pokemon> {
+    suspend fun getPokemon(pokeName: String): Pokemon {
         val responseGetPokeData = getPokeData(pokeName)
         val responsePokeEvolution = getPokeEvolution(pokeName)
 
@@ -34,37 +36,8 @@ class DetailsHttpUtils(private val api: Endpoint) {
         return getEvolutions(response)
     }
 
-    private suspend fun toPokemon(
-        responsePokemonGson: Response<PokemonGson>, responsePokeEvolution: Response<PokeEvolution>
-    ): MutableLiveData<Pokemon> {
-        val pokemon = Pokemon()
-
-        var urlEvolutionChain = ""
-
-        pokemon.apply {
-            responsePokemonGson.body()?.apply {
-                name = _name
-                id = _id
-                height = _height
-                weight = _weight
-                types = _types.map { it.type.nameType }
-                stats = _stats.map { mapOf(Pair(it.stat.nameStat, it.base_stat)) }
-                abilites = _abilities.map { it.ability.nameAbility }
-                sprite = _sprites.officilArtworK.frontDefault.url
-            }
-
-            responsePokeEvolution.body()?.apply {
-                evolvesFrom = _evolvesFrom?.name
-                urlEvolutionChain = _evolutionChain.url
-            }
-
-            evolutionChain = getPokeEvolutionChain(urlEvolutionChain.substringAfterLast("v2/"))
-        }
-        return MutableLiveData(pokemon)
-    }
-
     //Obtem a corrente de evolução do pokemon
-    fun getEvolutions(responsePokeEvolution: Response<PokeEvolutionChain>): MutableList<MutableList<String>> {
+    private fun getEvolutions(responsePokeEvolution: Response<PokeEvolutionChain>): MutableList<MutableList<String>> {
 
         val allEvolutions = mutableListOf<MutableList<String>>()
 
@@ -128,6 +101,35 @@ class DetailsHttpUtils(private val api: Endpoint) {
         }
 
         return name
+    }
+
+    private suspend fun toPokemon(
+        responsePokemonGson: Response<PokemonGson>, responsePokeEvolution: Response<PokeEvolution>
+    ): Pokemon {
+        val pokemon = Pokemon()
+
+        var urlEvolutionChain = ""
+
+        pokemon.apply {
+            responsePokemonGson.body()?.apply {
+                name = _name
+                id = _id
+                height = _height
+                weight = _weight
+                types = _types.map { it.type.nameType }
+                stats = _stats.map { mapOf(Pair(it.stat.nameStat, it.base_stat)) }
+                abilites = _abilities.map { it.ability.nameAbility }
+                sprite = _sprites.officilArtworK.frontDefault.url
+            }
+
+            responsePokeEvolution.body()?.apply {
+                evolvesFrom = _evolvesFrom?.name
+                urlEvolutionChain = _evolutionChain.url
+            }
+
+            evolutionChain = getPokeEvolutionChain(urlEvolutionChain.substringAfterLast("v2/"))
+        }
+        return pokemon
     }
 
 }

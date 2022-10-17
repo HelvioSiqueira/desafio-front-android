@@ -23,5 +23,4 @@ class RoomRepository(database: PokeDatabase): PokedexRepository {
     override fun existeNaPokedex(id: Int): Int {
         return pokedexDao.pokemonById(id)
     }
-
 }

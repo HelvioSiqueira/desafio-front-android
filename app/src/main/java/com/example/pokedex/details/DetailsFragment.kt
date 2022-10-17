@@ -10,13 +10,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.pokedex.MainActivity
 import com.example.pokedex.PokeList
 import com.example.pokedex.Pokemon
 import com.example.pokedex.R
+import com.example.pokedex.databinding.ActivityMainBinding
 import com.example.pokedex.databinding.FragmentDetailsBinding
 import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
@@ -27,8 +27,7 @@ class DetailsFragment : Fragment() {
     private val viewModel: DetailsViewModel by viewModel()
 
     private lateinit var pokeName: String
-
-    private var pokemonDetails = Pokemon()
+    private lateinit var pokemonDetails: Pokemon
 
     private lateinit var binding: FragmentDetailsBinding
 
@@ -45,41 +44,42 @@ class DetailsFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.getPokemon(pokeName).observe(viewLifecycleOwner, Observer { pokemon ->
-                Log.d("HSV", pokemon.toString())
 
-                pokemonDetails = pokemon
+            pokemonDetails = viewModel.getPokemon(pokeName)
 
-                fillDetails(binding, pokemon)
-                fillStatus(pokemon.stats)
-                fillEvolutions(binding, pokemon.evolutionChain)
+            Log.d("HSV", pokemonDetails.toString())
 
-                viewModel.fillComplete.value = true
-            })
+            fillDetails(binding, pokemonDetails)
+            fillStatus(pokemonDetails.stats)
+            fillEvolutions(binding, pokemonDetails.evolutionChain)
+
+            viewModel.fillComplete.value = true
         }
 
-        viewModel.fillComplete.observe(viewLifecycleOwner, Observer { fill->
-            if(fill){
-                if(viewModel.checar(pokemonDetails.id.toInt()) == 1){
+        viewModel.fillComplete.observe(viewLifecycleOwner, Observer { fill ->
+            if (fill) {
+                if (viewModel.checar(pokemonDetails.id.toInt()) == 1) {
                     binding.iconFav.setImageResource(R.drawable.ic_baseline_favorite_24)
                     binding.iconFav.isEnabled = false
+
                 } else {
                     binding.iconFav.setOnClickListener {
 
-                        val pokeList = PokeList()
-
-                        pokeList.id = pokemonDetails.id
-                        pokeList.name = pokemonDetails.name
-                        pokeList.url = "$"
-                        pokeList.urlImg = pokemonDetails.sprite
+                        val pokeList = PokeList().apply {
+                            id = pokemonDetails.id
+                            name = pokemonDetails.name
+                            url = ""
+                            urlImg = pokemonDetails.sprite
+                        }
 
                         viewModel.salvarNaPokedex(pokeList)
+
                         binding.iconFav.setImageResource(R.drawable.ic_baseline_favorite_24)
                         binding.iconFav.isEnabled = false
-
-                        Log.d("HSV", "Salvo")
                     }
                 }
+
+                viewModel.fillComplete.value = false
             }
         })
 
@@ -88,17 +88,18 @@ class DetailsFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-
         Log.d("HSV", "Details detach")
-
 
     }
 
-    private fun fillEvolutions(binding: FragmentDetailsBinding, evolutionChain: List<List<String>>){
+    private fun fillEvolutions(
+        binding: FragmentDetailsBinding,
+        evolutionChain: List<List<String>>
+    ) {
         val arrayLayouts = arrayOf(binding.estagio1, binding.estagio2, binding.estagio3)
         val quantStages = evolutionChain.count { it.isNotEmpty() }
 
-        if(quantStages == 1){
+        if (quantStages == 1) {
             binding.txtEvolutions.text = "Este pokemon nao evolui"
         }
 
@@ -161,5 +162,17 @@ class DetailsFragment : Fragment() {
             nameEvolution.substringBeforeLast("|").replaceFirstChar { it.uppercase() }
 
         Toast.makeText(requireContext(), formatedName, Toast.LENGTH_LONG).show()
+    }
+
+    companion object{
+
+        const val TAG_DETAILS = "tagDetails"
+        private const val EXTRA_POKE_NAME = "poke_name"
+
+        fun newInstance(poke_name: String) = DetailsFragment().apply {
+            arguments = Bundle().apply {
+                putString(EXTRA_POKE_NAME, poke_name)
+            }
+        }
     }
 }

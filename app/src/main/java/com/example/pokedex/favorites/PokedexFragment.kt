@@ -14,6 +14,7 @@ import com.example.pokedex.PokeList
 import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexRecycler
 import com.example.pokedex.databinding.FragmentPokedexBinding
+import com.example.pokedex.home.HomeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 //Excluir HttpRepository quando deixar de ser usada
@@ -60,12 +61,10 @@ class PokedexFragment: Fragment() {
 
     private fun onListItemClick(itemLista: PokeList) {
 
-        val args = Bundle().apply {
-            putString("poke_name", itemLista.name)
+        if(activity is HomeFragment.OnPokemonClickListener){
+            val listener = activity as HomeFragment.OnPokemonClickListener
+            listener.onPokemonClick(itemLista.name)
         }
-
-        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-            .navigate(R.id.action_pokedexFragment_to_detailsFragment, args)
 
     }
 }

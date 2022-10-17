@@ -1,6 +1,5 @@
 package com.example.pokedex.home
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -11,9 +10,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.pokedex.MainActivity
 import com.example.pokedex.PokeList
 import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexRecycler
@@ -78,19 +75,16 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
         binding.rv.layoutManager = layoutManager
     }
 
-    interface OnScroll{
-        fun onListScrolled(status: Boolean)
-    }
-
     private fun onListItemClick(itemLista: PokeList) {
 
-        val args = Bundle().apply {
-            putString("poke_name", itemLista.name)
+        if(activity is OnPokemonClickListener){
+            val listener = activity as OnPokemonClickListener
+            listener.onPokemonClick(itemLista.name)
         }
+    }
 
-        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-            .navigate(R.id.action_homeFragment_to_detailsFragment, args)
-
+    interface OnPokemonClickListener{
+        fun onPokemonClick(poke_name: String)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

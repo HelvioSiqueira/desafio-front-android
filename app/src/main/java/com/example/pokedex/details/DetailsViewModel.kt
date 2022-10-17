@@ -13,8 +13,13 @@ class DetailsViewModel(
     private val repository: PokedexRepository
 ) : ViewModel(), KoinComponent{
 
+    //Precisa que a classe implemente KoinComponent para usar o by inject() em uma classe que não
+    //seja um Activity, Fragment ou Service
+    private val pokeHttp: DetailsHttpUtils by inject()
+
     lateinit var pokemon: Pokemon
-    val error = MutableLiveData<Boolean>()
+
+    var ocultar = MutableLiveData<Boolean>()
 
     var fillComplete = MutableLiveData<Boolean>()
 
@@ -26,10 +31,7 @@ class DetailsViewModel(
         return repository.existeNaPokedex(id)
     }
 
-    suspend fun getPokemon(pokeName: String): MutableLiveData<Pokemon> {
-
-        val pokeHttp: DetailsHttpUtils by inject()
-
+    suspend fun getPokemon(pokeName: String): Pokemon {
         return pokeHttp.getPokemon(pokeName)
     }
 }

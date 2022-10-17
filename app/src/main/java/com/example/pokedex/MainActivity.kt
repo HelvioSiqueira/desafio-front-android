@@ -1,26 +1,24 @@
 package com.example.pokedex
 
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pokedex.databinding.ActivityMainBinding
+import com.example.pokedex.home.DetailsActivity
 import com.example.pokedex.home.HomeFragment
 
-class MainActivity : AppCompatActivity(), HomeFragment.OnScroll {
+class MainActivity : AppCompatActivity(), HomeFragment.OnPokemonClickListener {
 
     private lateinit var navHostFragment: NavHostFragment
 
-    private val binding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //bindind.bottonNavigation.labelVisibilityMode
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
@@ -33,16 +31,17 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnScroll {
 
         val navControler = navHostFragment.navController
 
+
         binding.bottonNavigation.apply {
             setupWithNavController(navControler)
         }
     }
 
-    override fun onListScrolled(status: Boolean) {
-
-        binding.bottonNavigation.visibility =
-            if (status) View.VISIBLE
-            else View.GONE
+    override fun onPokemonClick(poke_name: String) {
+        showDetailsActivity(poke_name)
     }
 
+    private fun showDetailsActivity(poke_name: String){
+        DetailsActivity.open(this, poke_name)
+    }
 }
