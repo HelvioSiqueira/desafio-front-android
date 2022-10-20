@@ -1,4 +1,4 @@
-package com.example.pokedex.home
+package com.example.pokedex.details
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.pokedex.R
 import com.example.pokedex.databinding.ActivityDetailsBinding
-import com.example.pokedex.details.DetailsFragment
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -24,7 +23,7 @@ class DetailsActivity : AppCompatActivity() {
         showDetailsFragment()
     }
 
-    fun showDetailsFragment(){
+    private fun showDetailsFragment(){
         val fragment = DetailsFragment.newInstance(poke_name)
 
         supportFragmentManager

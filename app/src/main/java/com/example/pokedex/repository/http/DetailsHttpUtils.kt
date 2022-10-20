@@ -1,13 +1,17 @@
 package com.example.pokedex.repository.http
 
 import androidx.lifecycle.MutableLiveData
+import com.example.pokedex.PokeList
 import com.example.pokedex.Pokemon
 import com.example.pokedex.repository.http.model.*
+import com.example.pokedex.util.URL_IMG
 import retrofit2.Response
 
 
 //Transformada para classe e passado o Endpoint como parametro
 class DetailsHttpUtils(private val api: Endpoint) {
+
+    //Request da parte de details
 
     //Passa os dois responses para toPokemon
     //O responseGetPokeData() obtem o detalhes do pokemon no https://pokeapi.co/api/v2/pokemon/
@@ -131,5 +135,4 @@ class DetailsHttpUtils(private val api: Endpoint) {
         }
         return pokemon
     }
-
 }

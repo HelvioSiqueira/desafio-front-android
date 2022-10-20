@@ -3,13 +3,17 @@ package com.example.pokedex
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.pokedex.databinding.ActivityMainBinding
-import com.example.pokedex.home.DetailsActivity
+import com.example.pokedex.details.DetailsActivity
 import com.example.pokedex.home.HomeFragment
+import com.example.pokedex.tipes.TypeListActivity
+import com.example.pokedex.tipes.TypesFragment
 
-class MainActivity : AppCompatActivity(), HomeFragment.OnPokemonClickListener {
+class MainActivity : AppCompatActivity(), HomeFragment.OnPokemonClickListener,
+    TypesFragment.OnTypeClickListener {
 
     private lateinit var navHostFragment: NavHostFragment
 
@@ -41,7 +45,18 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnPokemonClickListener {
         showDetailsActivity(poke_name)
     }
 
-    private fun showDetailsActivity(poke_name: String){
+    private fun showDetailsActivity(poke_name: String) {
         DetailsActivity.open(this, poke_name)
+    }
+
+    override fun onTypeClick(typeUrl: String) {
+        showTypeList(typeUrl)
+    }
+
+    //Abre a lista de pokemon por tipos quando for clicado
+    private fun showTypeList(typeUrl: String) {
+        Log.d("HSV", "Na MainActivity: $typeUrl")
+
+        TypeListActivity.open(this, typeUrl)
     }
 }

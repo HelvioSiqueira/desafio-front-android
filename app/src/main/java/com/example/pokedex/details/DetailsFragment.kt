@@ -165,7 +165,6 @@ class DetailsFragment : Fragment() {
     }
 
     companion object{
-
         const val TAG_DETAILS = "tagDetails"
         private const val EXTRA_POKE_NAME = "poke_name"
 

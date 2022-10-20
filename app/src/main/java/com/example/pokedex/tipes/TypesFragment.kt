@@ -1,22 +1,14 @@
 package com.example.pokedex.tipes
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokedex.PokeList
-import com.example.pokedex.R
-import com.example.pokedex.adapter.PokedexAdapter
-import com.example.pokedex.adapter.PokedexRecycler
 import com.example.pokedex.adapter.TypesRecycler
 import com.example.pokedex.databinding.FragmentTipesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,7 +26,7 @@ class TypesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentTipesBinding.inflate(layoutInflater)
 
@@ -45,12 +37,6 @@ class TypesFragment : Fragment() {
         })
 
         return binding.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        Log.d("HSV", "TipesFragment startado")
     }
 
     private fun obterListTypes() {
@@ -68,14 +54,21 @@ class TypesFragment : Fragment() {
 
     }
 
-    fun onListItemClick(itemType: PokeList) {
+    //Se activity base for OnTypeClickListener executa o onTypeClick() que está
+    //implementado na MainActivity, dessa forma a lista de pokemon por tipo já iria abrir normalmente
+    //Mas a tala de detalhes não iria ser exibida pois agora a activity base do ListPokeFragment é TypeListActivity
+    private fun onListItemClick(itemType: PokeList) {
+        if (activity is OnTypeClickListener) {
+            val listener = activity as OnTypeClickListener
 
-        val args = Bundle().apply {
-            putString("pokeUrl", itemType.url)
+            Log.d("HSV", "TypesFragment: ${itemType.url}")
+
+            listener.onTypeClick(itemType.url)
         }
-
-        Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-            .navigate(R.id.action_action_tipes_to_listPokeFragment, args)
     }
 
+    //Listener para abrir a lista de tipos
+    interface OnTypeClickListener {
+        fun onTypeClick(typeUrl: String)
+    }
 }

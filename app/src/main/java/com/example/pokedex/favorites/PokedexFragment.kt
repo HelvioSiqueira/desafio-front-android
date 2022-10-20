@@ -60,7 +60,6 @@ class PokedexFragment: Fragment() {
     }
 
     private fun onListItemClick(itemLista: PokeList) {
-
         if(activity is HomeFragment.OnPokemonClickListener){
             val listener = activity as HomeFragment.OnPokemonClickListener
             listener.onPokemonClick(itemLista.name)

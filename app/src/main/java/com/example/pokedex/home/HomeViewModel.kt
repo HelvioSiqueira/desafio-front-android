@@ -2,15 +2,15 @@ package com.example.pokedex.home
 
 import androidx.lifecycle.*
 import com.example.pokedex.PokeList
-import com.example.pokedex.repository.http.model.PokeListGson
-import com.example.pokedex.repository.http.HttpRepository
-import com.example.pokedex.util.URL_IMG
+import com.example.pokedex.repository.PokedexRepository
+import com.example.pokedex.repository.http.HomeHttpUtils
 import kotlinx.coroutines.launch
-import retrofit2.Response
+import org.koin.core.component.inject
+import org.koin.core.component.KoinComponent
 
-class HomeViewModel(private val repository: HttpRepository) : ViewModel() {
+class HomeViewModel(private val repository: PokedexRepository) : ViewModel(), KoinComponent {
 
-    val error = MutableLiveData<Boolean>()
+    private val pokeHttp: HomeHttpUtils by inject()
 
     private val pokeList = mutableListOf<PokeList>()
 
@@ -20,35 +20,13 @@ class HomeViewModel(private val repository: HttpRepository) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            getPokeList()
+            pokeList.addAll(pokeHttp.getPokeList())
+
+            onListIsReady.value = true
         }
     }
 
     fun getList(): LiveData<List<PokeList>> = Transformations.switchMap(searchTerm) { term ->
         MutableLiveData(pokeList.filter { it.name.uppercase().contains(term.uppercase()) })
-    }
-
-    private suspend fun getPokeList() {
-        val response = repository.pokeList()
-
-        if (response.isSuccessful) {
-            toPokeList(response)
-        }
-    }
-
-    private fun toPokeList(response: Response<PokeListGson>) {
-        response.body()?.results?.forEach {
-            val poke = PokeList()
-
-            poke.name = it.name
-            poke.url = it.url
-            poke.id = poke.url.substringAfterLast("species/").substringBeforeLast("/")
-            poke.urlImg = "$URL_IMG${poke.id}.png"
-
-            pokeList.add(poke)
-        }
-        if (response.isSuccessful) {
-            onListIsReady.value = true
-        }
     }
 }

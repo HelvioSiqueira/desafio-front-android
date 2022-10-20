@@ -35,12 +35,14 @@ class ListPokeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
         arguments?.run {
-            pokeUrl = getString("pokeUrl").toString().substringAfterLast("v2/")
+            pokeUrl = getString("urlType").toString().substringAfterLast("v2/")
         }
+
+        Log.d("HSV", "No ListPokeFragment: $pokeUrl")
 
         pokeList = viewModel.getPokeList(pokeUrl)
 
@@ -53,13 +55,14 @@ class ListPokeFragment : Fragment() {
         return binding.root
     }
 
+    //
     private fun onListItemClick(itemList: PokeList) {
+        Log.d("HSV", "$activity")
 
-        if(activity is HomeFragment.OnPokemonClickListener){
-            val listener = activity as HomeFragment.OnPokemonClickListener
+        if (activity is OnPokemonClickListener) {
+            val listener = activity as OnPokemonClickListener
             listener.onPokemonClick(itemList.name)
         }
-
     }
 
     private fun showPokeList(pokeList: List<PokeList>) {
@@ -68,5 +71,22 @@ class ListPokeFragment : Fragment() {
         binding.rv.adapter = pokeListAdapter
 
         binding.rv.layoutManager = GridLayoutManager(requireContext(), 2)
+    }
+
+    //Listener para abrir a lista de pokemon por tipos
+    //(Precisou ser criada pois agora o a activity desse fagment é TypeListActivity)
+    interface OnPokemonClickListener {
+        fun onPokemonClick(poke_name: String)
+    }
+
+    companion object {
+        const val TAG_TYPE_LIST = "tagType"
+        private const val EXTRA_TYPE = "urlType"
+
+        fun newInstance(urlType: String) = ListPokeFragment().apply {
+            arguments = Bundle().apply {
+                putString(EXTRA_TYPE, urlType)
+            }
+        }
     }
 }
