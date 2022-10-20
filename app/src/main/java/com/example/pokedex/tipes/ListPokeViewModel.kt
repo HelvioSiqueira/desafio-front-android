@@ -4,13 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.PokeList
-import com.example.pokedex.repository.http.HttpRepository
+import com.example.pokedex.repository.PokedexRepository
 import com.example.pokedex.repository.http.model.TypesHttpUtils
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import org.koin.core.component.KoinComponent
 
-class ListPokeViewModel(private val repository: HttpRepository) : ViewModel(), KoinComponent {
+class ListPokeViewModel(private val repository: PokedexRepository) : ViewModel(), KoinComponent {
 
     private val typesHttp: TypesHttpUtils by inject()
 

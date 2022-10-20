@@ -9,7 +9,6 @@ import com.example.pokedex.repository.PokedexRepository
 import com.example.pokedex.repository.http.DetailsHttpUtils
 import com.example.pokedex.repository.http.Endpoint
 import com.example.pokedex.repository.http.HomeHttpUtils
-import com.example.pokedex.repository.http.HttpRepository
 import com.example.pokedex.repository.http.model.TypesHttpUtils
 import com.example.pokedex.repository.room.PokeDatabase
 import com.example.pokedex.repository.room.RoomRepository
@@ -25,11 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val androidModule = module {
     single { this }
-
-    //Será removida quando suas funções passarem todas pro DetailsHttpUtils
-    single {
-        HttpRepository(api = get()) as HttpRepository
-    }
 
     single {
         DetailsHttpUtils(api = get())
