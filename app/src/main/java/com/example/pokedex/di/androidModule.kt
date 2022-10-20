@@ -10,6 +10,7 @@ import com.example.pokedex.repository.http.DetailsHttpUtils
 import com.example.pokedex.repository.http.Endpoint
 import com.example.pokedex.repository.http.HomeHttpUtils
 import com.example.pokedex.repository.http.HttpRepository
+import com.example.pokedex.repository.http.model.TypesHttpUtils
 import com.example.pokedex.repository.room.PokeDatabase
 import com.example.pokedex.repository.room.RoomRepository
 import com.example.pokedex.tipes.ListPokeViewModel
@@ -36,6 +37,10 @@ val androidModule = module {
 
     single {
         HomeHttpUtils(api = get())
+    }
+
+    single {
+        TypesHttpUtils(api= get())
     }
 
     single {

@@ -5,10 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.PokeList
 import com.example.pokedex.repository.http.HttpRepository
-import com.example.pokedex.util.URL_IMG
+import com.example.pokedex.repository.http.model.TypesHttpUtils
 import kotlinx.coroutines.launch
+import org.koin.core.component.inject
+import org.koin.core.component.KoinComponent
 
-class ListPokeViewModel(private val repository: HttpRepository) : ViewModel() {
+class ListPokeViewModel(private val repository: HttpRepository) : ViewModel(), KoinComponent {
+
+    private val typesHttp: TypesHttpUtils by inject()
 
     private val pokeListTypes = mutableListOf<PokeList>()
 
@@ -17,33 +21,13 @@ class ListPokeViewModel(private val repository: HttpRepository) : ViewModel() {
     fun getPokeList(url: String): MutableList<PokeList> {
 
         viewModelScope.launch {
-            getPokeListTypesApi(url)
+            pokeListTypes.addAll(typesHttp.getPokeListTypesApi(url))
+
+            onListIsReady.value = true
         }
 
         return pokeListTypes
     }
 
-    private suspend fun getPokeListTypesApi(url: String) {
 
-        val response = repository.pokeListType(url)
-
-        if (response.isSuccessful) {
-            response.body()?.pokeListTypes?.forEach {
-                val pokeList = PokeList()
-
-                pokeList.url = it.pokemon.url
-                pokeList.id = pokeList.url.substringAfterLast("pokemon/").substringBeforeLast("/")
-
-                if (pokeList.id.toInt() < 10000) {
-                    pokeList.name = it.pokemon.name
-                    pokeList.urlImg = "$URL_IMG${pokeList.id}.png"
-
-                    pokeListTypes.add(pokeList)
-                }
-            }
-
-            onListIsReady.value = true
-        }
-
-    }
 }

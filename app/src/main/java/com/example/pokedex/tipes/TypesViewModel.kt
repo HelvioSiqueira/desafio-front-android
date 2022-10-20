@@ -5,9 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.PokeList
 import com.example.pokedex.repository.http.HttpRepository
+import com.example.pokedex.repository.http.model.TypesHttpUtils
 import kotlinx.coroutines.launch
+import org.koin.core.component.inject
+import org.koin.core.component.KoinComponent
 
-class TypesViewModel(private val repository: HttpRepository) : ViewModel() {
+class TypesViewModel(private val repository: HttpRepository) : ViewModel(), KoinComponent{
+
+    private val typesHttp: TypesHttpUtils by inject()
 
     private val listTypes = mutableListOf<PokeList>()
 
@@ -15,30 +20,11 @@ class TypesViewModel(private val repository: HttpRepository) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            getPokeTypes()
-        }
-    }
-
-    fun getListTypes() = listTypes
-
-    private suspend fun getPokeTypes() {
-
-        val response = repository.listTypes()
-
-        if (response.isSuccessful) {
-            response.body()?.listTypes?.forEach {
-
-                if (it.name != "unknown" && it.name != "shadow") {
-                    val pokeList = PokeList()
-
-                    pokeList.name = it.name
-                    pokeList.url = it.url
-
-                    listTypes.add(pokeList)
-                }
-            }
+             listTypes.addAll(typesHttp.getPokeTypes())
 
             onListIsReady.value = true
         }
     }
+
+    fun getListTypes() = listTypes
 }
