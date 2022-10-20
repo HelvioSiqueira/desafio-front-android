@@ -149,12 +149,12 @@ class DetailsFragment : Fragment() {
 
     private fun fillStatus(stats: List<Map<String, Int>>) {
 
-        binding.barHp.setTamStatus(stats[0].getValue("hp") / 10)
-        binding.barAttack.setTamStatus(stats[1].getValue("attack") / 10)
-        binding.barDefense.setTamStatus(stats[2].getValue("defense") / 10)
-        binding.barSpAttack.setTamStatus(stats[3].getValue("special-attack") / 10)
-        binding.barSpDefense.setTamStatus(stats[4].getValue("special-defense") / 10)
-        binding.barSpeed.setTamStatus(stats[5].getValue("speed") / 10)
+        binding.barHp.setTamStatus(stats[0].getValue("hp"))
+        binding.barAttack.setTamStatus(stats[1].getValue("attack"))
+        binding.barDefense.setTamStatus(stats[2].getValue("defense"))
+        binding.barSpAttack.setTamStatus(stats[3].getValue("special-attack"))
+        binding.barSpDefense.setTamStatus(stats[4].getValue("special-defense"))
+        binding.barSpeed.setTamStatus(stats[5].getValue("speed"))
     }
 
     private fun showNameEvolution(nameEvolution: String) {

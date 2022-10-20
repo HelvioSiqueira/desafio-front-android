@@ -5,8 +5,11 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import kotlin.math.ceil
 import kotlin.math.round
 
 class BarStatus @JvmOverloads constructor(
@@ -15,10 +18,11 @@ class BarStatus @JvmOverloads constructor(
     style: Int = 0
 ) : View(context, attributeSet, style) {
 
-    private var tamStatus: Int = 0
+    private var tamStatus = 0F
     private var largura = 0
     private var altura = 80
     private lateinit var paint: Paint
+    private lateinit var detector: GestureDetector
 
     init {
         val styledAtts = context.obtainStyledAttributes(attributeSet, R.styleable.BarStatus)
@@ -26,7 +30,7 @@ class BarStatus @JvmOverloads constructor(
     }
 
     fun setTamStatus(tamStatusEnviado: Int) {
-        tamStatus = tamStatusEnviado
+        tamStatus = tamStatusEnviado.toFloat()
         invalidate()
     }
 
@@ -35,6 +39,27 @@ class BarStatus @JvmOverloads constructor(
 
         paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.style = Paint.Style.FILL
+
+        detector = GestureDetector(context, BarStatusListener())
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return detector.onTouchEvent(event)
+    }
+
+    inner class BarStatusListener: GestureDetector.SimpleOnGestureListener(){
+        override fun onDown(e: MotionEvent): Boolean {
+            return true
+        }
+
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
+
+            if(e.action == MotionEvent.ACTION_UP){
+                Toast.makeText(context, tamStatus.toString(), Toast.LENGTH_LONG).show()
+            }
+
+            return super.onSingleTapUp(e)
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -59,6 +84,8 @@ class BarStatus @JvmOverloads constructor(
 
         var voltas = 0
 
+        val quantBarras = ceil(tamStatus / 15)
+
         for (l in 0 until largura - 20 step largura / 15) {
 
             voltas++
@@ -68,7 +95,7 @@ class BarStatus @JvmOverloads constructor(
 
             paint.color = Color.parseColor("#e7e5ea")
 
-            if (voltas <= tamStatus) {
+            if (voltas <= quantBarras) {
                 paint.color = Color.parseColor("#30a7d7")
             }
 

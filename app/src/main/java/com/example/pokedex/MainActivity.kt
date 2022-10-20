@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnPokemonClickListener,
 
     //Abre a lista de pokemon por tipos quando for clicado
     private fun showTypeList(typeUrl: String) {
-        Log.d("HSV", "Na MainActivity: $typeUrl")
 
         TypeListActivity.open(this, typeUrl)
     }
