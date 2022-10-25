@@ -1,10 +1,7 @@
 package com.example.pokedex.repository.http
 
-import androidx.lifecycle.MutableLiveData
-import com.example.pokedex.PokeList
-import com.example.pokedex.Pokemon
+import com.example.pokedex.model.Pokemon
 import com.example.pokedex.repository.http.model.*
-import com.example.pokedex.util.URL_IMG
 import retrofit2.Response
 
 

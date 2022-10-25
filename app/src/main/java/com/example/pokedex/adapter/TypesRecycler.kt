@@ -1,14 +1,11 @@
 package com.example.pokedex.adapter
 
 import android.content.Context
-import android.content.res.Resources
 import android.content.res.TypedArray
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.res.getDrawableOrThrow
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.R
 import com.example.pokedex.databinding.ItemTypeBinding
 

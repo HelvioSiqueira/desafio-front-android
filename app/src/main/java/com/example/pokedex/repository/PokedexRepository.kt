@@ -1,8 +1,7 @@
 package com.example.pokedex.repository
 
 import androidx.lifecycle.LiveData
-import com.example.pokedex.PokeList
-import com.example.pokedex.Pokemon
+import com.example.pokedex.model.PokeList
 
 interface PokedexRepository {
 

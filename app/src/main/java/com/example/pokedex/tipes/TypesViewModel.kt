@@ -3,7 +3,7 @@ package com.example.pokedex.tipes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.repository.PokedexRepository
 import com.example.pokedex.repository.http.model.TypesHttpUtils
 import kotlinx.coroutines.launch

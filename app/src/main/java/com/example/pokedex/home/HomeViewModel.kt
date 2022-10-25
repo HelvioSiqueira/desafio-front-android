@@ -1,7 +1,7 @@
 package com.example.pokedex.home
 
 import androidx.lifecycle.*
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.repository.PokedexRepository
 import com.example.pokedex.repository.http.HomeHttpUtils
 import kotlinx.coroutines.launch

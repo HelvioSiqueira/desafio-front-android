@@ -1,7 +1,7 @@
 package com.example.pokedex.repository.http.model
 
 import android.util.Log
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.repository.http.Endpoint
 import com.example.pokedex.util.URL_IMG
 

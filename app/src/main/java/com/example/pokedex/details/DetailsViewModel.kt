@@ -2,8 +2,8 @@ package com.example.pokedex.details
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pokedex.PokeList
-import com.example.pokedex.Pokemon
+import com.example.pokedex.model.PokeList
+import com.example.pokedex.model.Pokemon
 import com.example.pokedex.repository.PokedexRepository
 import com.example.pokedex.repository.http.DetailsHttpUtils
 import org.koin.core.component.KoinComponent

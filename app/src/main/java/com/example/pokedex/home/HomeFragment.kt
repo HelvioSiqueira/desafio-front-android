@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexRecycler
 import com.example.pokedex.adapter.Scroll

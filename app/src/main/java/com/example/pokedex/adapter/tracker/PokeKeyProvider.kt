@@ -1,7 +1,7 @@
 package com.example.pokedex.adapter.tracker
 
 import androidx.recyclerview.selection.ItemKeyProvider
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 
 class PokeKeyProvider(private val pokeList: List<PokeList>) :
     ItemKeyProvider<Long>(ItemKeyProvider.SCOPE_MAPPED) {

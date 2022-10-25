@@ -1,6 +1,6 @@
 package com.example.pokedex.repository.http
 
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.repository.http.model.PokeListGson
 import com.example.pokedex.util.URL_IMG
 import retrofit2.Response

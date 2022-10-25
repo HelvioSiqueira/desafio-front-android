@@ -1,8 +1,7 @@
 package com.example.pokedex.repository.room
 
 import androidx.lifecycle.LiveData
-import com.example.pokedex.PokeList
-import com.example.pokedex.Pokemon
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.repository.PokedexRepository
 
 class RoomRepository(database: PokeDatabase): PokedexRepository {

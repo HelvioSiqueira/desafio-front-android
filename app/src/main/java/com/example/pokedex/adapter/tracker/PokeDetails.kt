@@ -2,7 +2,7 @@ package com.example.pokedex.adapter.tracker
 
 import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 
 class PokeDetails(var pokeList: PokeList? = null, var adapterPosition: Int = -1) :
     ItemDetailsLookup.ItemDetails<Long>() {

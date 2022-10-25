@@ -10,11 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.selection.SelectionTracker
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.pokedex.PokeList
-import com.example.pokedex.Pokemon
+import com.example.pokedex.model.PokeList
+import com.example.pokedex.model.Pokemon
 import com.example.pokedex.R
 import com.example.pokedex.databinding.FragmentDetailsBinding
 import com.example.pokedex.util.URL_IMG

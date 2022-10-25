@@ -1,13 +1,12 @@
 package com.example.pokedex.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.databinding.ItemPokemonBinding
 
 class PokedexAdapter(context: Context, pokeList: List<PokeList>) :

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.pokedex.PokeList
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.adapter.TypesRecycler
 import com.example.pokedex.databinding.FragmentTipesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel

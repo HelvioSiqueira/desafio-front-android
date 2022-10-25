@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.repository.room.PokeDatabase
 import com.example.pokedex.repository.room.RoomRepository
 import org.junit.Before

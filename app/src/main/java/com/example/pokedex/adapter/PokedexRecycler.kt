@@ -1,21 +1,13 @@
 package com.example.pokedex.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.pokedex.MainActivity
-import com.example.pokedex.PokeList
-import com.example.pokedex.R
-import com.example.pokedex.adapter.tracker.PokeDetails
-import com.example.pokedex.databinding.ActivityMainBinding
+import com.example.pokedex.model.PokeList
 import com.example.pokedex.databinding.ItemPokemonBinding
-import com.example.pokedex.home.HomeFragment
 
 class PokedexRecycler(
     private val context: Context,
