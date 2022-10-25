@@ -12,6 +12,7 @@
     <!--Nome das opções do action bar-->
     <string name="action_search">Pesquisar</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="action_delete">Excluir</string>
 
     <!--Texto da caixa de pesquisa-->
     <string name="hint_search">Pesquisa</string>

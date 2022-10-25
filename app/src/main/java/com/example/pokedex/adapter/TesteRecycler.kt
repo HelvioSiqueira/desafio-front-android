@@ -17,13 +17,15 @@ import com.example.pokedex.databinding.ActivityMainBinding
 import com.example.pokedex.databinding.ItemPokemonBinding
 import com.example.pokedex.home.HomeFragment
 
-class PokedexRecycler(
+class TesteRecycler(
     private val context: Context,
     private val pokeList: List<PokeList>,
     private val callback: (PokeList) -> Unit
-) : RecyclerView.Adapter<PokedexRecycler.VH>() {
+) : RecyclerView.Adapter<TesteRecycler.VH>() {
 
     private lateinit var binding: ItemPokemonBinding
+
+    lateinit var selectionTracker: SelectionTracker<Long>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
 
@@ -34,8 +36,6 @@ class PokedexRecycler(
         vh.itemView.setOnClickListener {
             val itemList = pokeList[vh.adapterPosition]
             callback(itemList)
-
-            it.isClickable
         }
 
         return vh
@@ -47,25 +47,23 @@ class PokedexRecycler(
         Glide.with(context).load(urlImg).into(holder.binding.imgView)
 
         holder.binding.txtNomeId.text = "N°$id $name"
+
+        holder.pokeDetails.pokeList = pokeList[position]
+        holder.pokeDetails.adapterPosition = position
+
+        if (selectionTracker.isSelected(holder.pokeDetails.selectionKey)) {
+            holder.itemView.setBackgroundColor(Color.RED)
+            holder.itemView.isActivated = true
+        } else {
+            holder.itemView.isActivated = false
+        }
     }
 
     override fun getItemCount() = pokeList.size
 
-    inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
-}
+    inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root) {
 
-class Scroll(): RecyclerView.OnScrollListener() {
+        val pokeDetails: PokeDetails = PokeDetails()
 
-    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-        super.onScrollStateChanged(recyclerView, newState)
-
-        when (newState) {
-            RecyclerView.SCROLL_STATE_IDLE -> Log.d("HSV", "Sem scroll")
-            RecyclerView.SCROLL_STATE_DRAGGING -> {
-                Log.d("HSV", "Scrollando")
-                //MainActivity().onListScrolled(false)
-            }
-            RecyclerView.SCROLL_STATE_SETTLING -> Log.d("HSV", "Scrool configurado")
-        }
     }
 }
