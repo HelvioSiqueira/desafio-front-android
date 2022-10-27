@@ -1,15 +1,11 @@
 package com.example.pokedex.di
 
-import com.example.pokedex.MainActivity
 import com.example.pokedex.util.API
 import com.example.pokedex.details.DetailsViewModel
 import com.example.pokedex.favorites.PokedexViewModel
 import com.example.pokedex.home.HomeViewModel
 import com.example.pokedex.repository.PokedexRepository
-import com.example.pokedex.repository.http.DetailsHttpUtils
-import com.example.pokedex.repository.http.Endpoint
-import com.example.pokedex.repository.http.HomeHttpUtils
-import com.example.pokedex.repository.http.model.TypesHttpUtils
+import com.example.pokedex.repository.http.*
 import com.example.pokedex.repository.room.PokeDatabase
 import com.example.pokedex.repository.room.RoomRepository
 import com.example.pokedex.tipes.ListPokeViewModel
@@ -35,6 +31,10 @@ val androidModule = module {
 
     single {
         TypesHttpUtils(api= get())
+    }
+
+    single {
+        AbilitiesHttpsUtils(api = get())
     }
 
     single {

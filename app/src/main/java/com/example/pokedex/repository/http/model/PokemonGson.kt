@@ -57,7 +57,9 @@ data class Ability(
 
 data class NameAbility(
     @SerializedName("name")
-    val nameAbility: String = ""
+    val nameAbility: String = "",
+    @SerializedName("url")
+    val urlAbility: String = ""
 )
 
 //--------------------------------------
@@ -77,3 +79,4 @@ data class FrontDefault(
     @SerializedName("front_default")
     val url: String = ""
 )
+

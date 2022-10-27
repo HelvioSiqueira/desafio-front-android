@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/abilitiesFragment"
-        android:name="com.example.pokedex.AbilitiesFragment"
+        android:name="com.example.pokedex.abilities.AbilitiesFragment"
         android:label="AbilitiesFragment" />
     <fragment
         android:id="@+id/listPokeFragment"

@@ -30,4 +30,7 @@ interface Endpoint {
     //Pega a corrente de evolução do pokemon(url obtida no getPokeEvolution)
     @GET("{url}")
     suspend fun getPokeEvolutionChain(@Path("url") url: String): Response<PokeEvolutionChain>
+
+    @GET("ability/{nameAbility}")
+    suspend fun getShortEfectsAbilities(@Path("nameAbility") nameAbility: String): Response<ShortEfectAbilityGson>
 }

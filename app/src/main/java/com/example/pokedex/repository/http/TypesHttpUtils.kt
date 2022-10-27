@@ -1,8 +1,7 @@
-package com.example.pokedex.repository.http.model
+package com.example.pokedex.repository.http
 
 import android.util.Log
 import com.example.pokedex.model.PokeList
-import com.example.pokedex.repository.http.Endpoint
 import com.example.pokedex.util.URL_IMG
 
 class TypesHttpUtils(private val api: Endpoint) {
