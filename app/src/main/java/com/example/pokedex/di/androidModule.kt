@@ -1,5 +1,6 @@
 package com.example.pokedex.di
 
+import com.example.pokedex.abilities.AbilitiesViewModel
 import com.example.pokedex.util.API
 import com.example.pokedex.details.DetailsViewModel
 import com.example.pokedex.favorites.PokedexViewModel
@@ -59,6 +60,10 @@ val androidModule = module {
 
     viewModel {
         ListPokeViewModel(repository = get())
+    }
+
+    viewModel {
+        AbilitiesViewModel(repository = get())
     }
 
     single {

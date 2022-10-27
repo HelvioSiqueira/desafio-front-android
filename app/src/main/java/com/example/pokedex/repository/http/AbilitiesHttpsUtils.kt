@@ -12,9 +12,16 @@ class AbilitiesHttpsUtils(private val api: Endpoint) {
         if(response.isSuccessful){
 
             response.body()?.let {
-                ability.name = it.nameAbility
-                ability.efect = it.effectEntry[1].efect
-                ability.shortEfect = it.effectEntry[1].shortEfect
+
+                if(it.effectEntry.size > 1){
+                    ability.name = it.nameAbility
+                    ability.efect = it.effectEntry[1].efect
+                    ability.shortEfect = it.effectEntry[1].shortEfect
+                } else {
+                    ability.name = it.nameAbility
+                    ability.efect = it.effectEntry[0].efect
+                    ability.shortEfect = it.effectEntry[0].shortEfect
+                }
             }
         }
 

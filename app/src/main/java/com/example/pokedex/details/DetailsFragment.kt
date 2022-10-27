@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,7 +16,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.pokedex.model.PokeList
 import com.example.pokedex.model.Pokemon
 import com.example.pokedex.R
+import com.example.pokedex.abilities.AbilitiesFragment
 import com.example.pokedex.databinding.FragmentDetailsBinding
+import com.example.pokedex.repository.http.model.NameAbility
 import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -139,10 +142,22 @@ class DetailsFragment : Fragment() {
             R.string.poke_types,
             pokemon.types.joinToString(separator = ", ")
         )
-        binding.pokeAbilites.text = resources.getString(
-            R.string.poke_abilites,
-            pokemon.abilites.joinToString(separator = ", ")
-        )
+
+
+        pokemon.abilites.forEach { ability->
+
+            Log.d("HSV", "Habilidade: $ability")
+
+            val txtAbility = TextView(requireContext())
+
+            txtAbility.text = ability.replaceFirstChar { it.uppercase() }
+
+            txtAbility.setOnClickListener {
+                showAbilitiesFragment(ability)
+            }
+
+            binding.listAbilities.addView(txtAbility)
+        }
     }
 
     private fun fillStatus(stats: List<Map<String, Int>>) {
@@ -160,6 +175,15 @@ class DetailsFragment : Fragment() {
             nameEvolution.substringBeforeLast("|").replaceFirstChar { it.uppercase() }
 
         Toast.makeText(requireContext(), formatedName, Toast.LENGTH_LONG).show()
+    }
+
+    private fun showAbilitiesFragment(nameAbility: String){
+        if(activity is DetailsActivity){
+
+            val act = activity as DetailsActivity
+
+            act.showAbility(nameAbility)
+        }
     }
 
     companion object{

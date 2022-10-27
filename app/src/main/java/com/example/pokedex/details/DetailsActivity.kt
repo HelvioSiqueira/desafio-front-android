@@ -5,9 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.pokedex.R
+import com.example.pokedex.abilities.AbilitiesFragment
 import com.example.pokedex.databinding.ActivityDetailsBinding
+import com.example.pokedex.repository.http.model.NameAbility
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(), AbilitiesFragment.OnShowAbility {
 
     private lateinit var binding: ActivityDetailsBinding
 
@@ -30,6 +32,10 @@ class DetailsActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragment_details, fragment, DetailsFragment.TAG_DETAILS)
             .commit()
+    }
+
+    override fun showAbility(nameAbility: String) {
+        AbilitiesFragment.newInstance(nameAbility).open(supportFragmentManager)
     }
 
     companion object{
