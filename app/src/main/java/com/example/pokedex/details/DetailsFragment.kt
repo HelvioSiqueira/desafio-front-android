@@ -46,8 +46,6 @@ class DetailsFragment : Fragment() {
 
             pokemonDetails = viewModel.getPokemon(pokeName)
 
-            Log.d("HSV", pokemonDetails.toString())
-
             fillDetails(binding, pokemonDetails)
             fillStatus(pokemonDetails.stats)
             fillEvolutions(binding, pokemonDetails.evolutionChain)
@@ -83,12 +81,6 @@ class DetailsFragment : Fragment() {
         })
 
         return binding.root
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("HSV", "Details detach")
-
     }
 
     private fun fillEvolutions(

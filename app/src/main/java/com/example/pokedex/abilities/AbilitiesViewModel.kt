@@ -11,7 +11,7 @@ class AbilitiesViewModel(private val repository: PokedexRepository): ViewModel()
 
     private val abilitiesHttps: AbilitiesHttpsUtils by inject()
 
-    suspend fun getAbilityEfects(nameAbility: String): Ability {
+    suspend fun getAbilityEffects(nameAbility: String): Ability {
 
         return abilitiesHttps.getShortEfects(nameAbility)
     }

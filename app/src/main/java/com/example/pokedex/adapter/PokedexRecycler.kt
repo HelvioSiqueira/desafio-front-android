@@ -1,21 +1,28 @@
 package com.example.pokedex.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokedex.model.PokeList
 import com.example.pokedex.databinding.ItemPokemonBinding
+import com.example.pokedex.favorites.PokedexFragment
 
 class PokedexRecycler(
     private val context: Context,
     private val pokeList: List<PokeList>,
-    private val callback: (PokeList) -> Unit
+    private val callback: (PokeList) -> Unit,
+    private val fragmentKey: String? = "",
+    private val callbackBool: (Boolean) -> Unit = {},
 ) : RecyclerView.Adapter<PokedexRecycler.VH>() {
 
     private lateinit var binding: ItemPokemonBinding
+
+    private var inDeleteMode = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
 
@@ -23,12 +30,32 @@ class PokedexRecycler(
 
         val vh = VH(binding)
 
-        vh.itemView.setOnClickListener {
-            val itemList = pokeList[vh.adapterPosition]
-            callback(itemList)
+        if (fragmentKey == PokedexFragment.FRAGMENT_POKEDEX) {
+            vh.itemView.setOnLongClickListener {
 
-            it.isClickable
+                inDeleteMode = true
+
+                callbackBool(true)
+
+                true
+            }
         }
+
+        vh.itemView.setOnClickListener {
+            if(!inDeleteMode){
+                val itemList = pokeList[vh.adapterPosition]
+                callback(itemList)
+                it.isClickable
+            } else {
+                vh.binding.cardView.setCardBackgroundColor(Color.parseColor("#ef6564"))
+                val itemList = pokeList[vh.adapterPosition]
+
+                deletionIndices.add(vh.adapterPosition)
+                deletionList.add(itemList)
+                Log.d("HSV", deletionList.joinToString(separator = ", "))
+            }
+        }
+
 
         return vh
     }
@@ -44,20 +71,14 @@ class PokedexRecycler(
     override fun getItemCount() = pokeList.size
 
     inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
-}
 
-class Scroll(): RecyclerView.OnScrollListener() {
+    companion object{
+        val deletionList = mutableListOf<PokeList>()
+        val deletionIndices = mutableListOf<Int>()
 
-    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-        super.onScrollStateChanged(recyclerView, newState)
-
-        when (newState) {
-            RecyclerView.SCROLL_STATE_IDLE -> Log.d("HSV", "Sem scroll")
-            RecyclerView.SCROLL_STATE_DRAGGING -> {
-                Log.d("HSV", "Scrollando")
-                //MainActivity().onListScrolled(false)
-            }
-            RecyclerView.SCROLL_STATE_SETTLING -> Log.d("HSV", "Scrool configurado")
+        fun clearDeletionList(){
+            deletionList.clear()
         }
     }
+
 }

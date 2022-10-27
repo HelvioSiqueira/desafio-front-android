@@ -41,7 +41,7 @@ class AbilitiesFragment: DialogFragment() {
         }
 
         lifecycleScope.launch {
-            ability = viewModel.getAbilityEfects(nameAbility)
+            ability = viewModel.getAbilityEffects(nameAbility)
             fillAbilitiesFragment(ability, binding)
         }
     }

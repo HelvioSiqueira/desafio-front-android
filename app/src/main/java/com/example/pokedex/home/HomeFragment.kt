@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokedex.model.PokeList
 import com.example.pokedex.R
 import com.example.pokedex.adapter.PokedexRecycler
-import com.example.pokedex.adapter.Scroll
 import com.example.pokedex.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,10 +39,6 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         binding = FragmentHomeBinding.inflate(layoutInflater)
-
-        binding.rv.addOnScrollListener(Scroll())
-
-        Log.d("HSV", "Estado: ${binding.rv.scrollState}")
 
         Log.d("HSV", activity.toString())
 
