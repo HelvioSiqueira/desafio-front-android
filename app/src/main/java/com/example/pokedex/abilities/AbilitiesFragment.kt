@@ -1,20 +1,14 @@
 package com.example.pokedex.abilities
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.ListFragment
 import androidx.lifecycle.lifecycleScope
 import com.example.pokedex.databinding.FragmentAbilitiesBinding
-import com.example.pokedex.databinding.FragmentDetailsBinding
 import com.example.pokedex.model.Ability
-import com.example.pokedex.repository.http.model.NameAbility
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 

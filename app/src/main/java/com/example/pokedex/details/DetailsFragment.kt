@@ -16,9 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.pokedex.model.PokeList
 import com.example.pokedex.model.Pokemon
 import com.example.pokedex.R
-import com.example.pokedex.abilities.AbilitiesFragment
 import com.example.pokedex.databinding.FragmentDetailsBinding
-import com.example.pokedex.repository.http.model.NameAbility
 import com.example.pokedex.util.URL_IMG
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
