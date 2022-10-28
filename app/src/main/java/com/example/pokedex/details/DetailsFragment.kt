@@ -126,8 +126,8 @@ class DetailsFragment : Fragment() {
         Glide.with(this@DetailsFragment).load(pokemon.sprite).into(binding.folder)
         binding.pokeName.text =
             resources.getString(R.string.poke_name, pokemon.id, pokemon.name)
-        binding.pokeHeight.text = resources.getString(R.string.poke_height, pokemon.height)
-        binding.pokeWeight.text = resources.getString(R.string.poke_weight, pokemon.weight)
+        binding.pokeHeight.text = resources.getString(R.string.poke_height, (pokemon.height.toDouble() / 10).toString())
+        binding.pokeWeight.text = resources.getString(R.string.poke_weight, (pokemon.weight.toDouble() / 10).toString())
         binding.pokeType.text = resources.getString(
             R.string.poke_types,
             pokemon.types.joinToString(separator = ", ")

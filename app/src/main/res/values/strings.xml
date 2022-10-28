@@ -19,8 +19,8 @@
 
     <!--Textos dos detalhes do pokemon-->
     <string name="poke_name">N°%1$s %2$s</string>
-    <string name="poke_height">Altura: %1$s</string>
-    <string name="poke_weight">Peso: %1$s</string>
+    <string name="poke_height">Altura: %1$s m</string>
+    <string name="poke_weight">Peso: %1$s kg</string>
     <string name="poke_types">Tipos: %1$s</string>
     <string name="poke_abilites">Habilidades: %1$s</string>
 
