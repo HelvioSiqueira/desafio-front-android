@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,8 @@ class PokedexRecycler(
 
                 inDeleteMode = true
 
+                selectItem(vh, it, 2)
+
                 callbackBool(true)
 
                 true
@@ -42,22 +45,43 @@ class PokedexRecycler(
         }
 
         vh.itemView.setOnClickListener {
-            if(!inDeleteMode){
-                val itemList = pokeList[vh.adapterPosition]
-                callback(itemList)
-                it.isClickable
-            } else {
-                vh.binding.cardView.setCardBackgroundColor(Color.parseColor("#ef6564"))
+            if (!inDeleteMode) {
                 val itemList = pokeList[vh.adapterPosition]
 
-                deletionIndices.add(vh.adapterPosition)
-                deletionList.add(itemList)
-                Log.d("HSV", deletionList.joinToString(separator = ", "))
+                callback(itemList)
+
+                Log.d("HSV", "${it.isActivated}")
+
+            } else {
+                if (it.isActivated) {
+
+                    selectItem(vh, it, 1)
+                } else {
+
+                    selectItem(vh, it, 2)
+                }
             }
         }
 
-
         return vh
+    }
+
+    private fun selectItem(vh: VH, view: View, op: Int) {
+
+        val itemList = pokeList[vh.adapterPosition]
+
+        when (op) {
+            1 -> {
+                vh.binding.cardView.setCardBackgroundColor(Color.parseColor("#EBEBEB"))
+                deletionList.remove(itemList)
+                view.isActivated = false
+            }
+            2 -> {
+                vh.binding.cardView.setCardBackgroundColor(Color.parseColor("#ef6564"))
+                deletionList.add(itemList)
+                view.isActivated = true
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
@@ -72,11 +96,10 @@ class PokedexRecycler(
 
     inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
 
-    companion object{
+    companion object {
         val deletionList = mutableListOf<PokeList>()
-        val deletionIndices = mutableListOf<Int>()
 
-        fun clearDeletionList(){
+        fun clearDeletionList() {
             deletionList.clear()
         }
     }
