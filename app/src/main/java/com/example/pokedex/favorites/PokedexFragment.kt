@@ -93,10 +93,18 @@ class PokedexFragment : Fragment(), ActionMode.Callback{
         if(menuItem?.itemId == R.id.action_delete){
             pokeList.clear()
             viewModel.deletedSelection(*deletionList.toTypedArray())
-            //activity?.recreate()
+
+            actionMode?.finish()
         }
 
         return true
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        actionMode?.finish()
+
     }
 
     override fun onDestroyActionMode(mode: ActionMode?) {
