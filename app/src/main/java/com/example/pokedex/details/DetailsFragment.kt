@@ -45,7 +45,7 @@ class DetailsFragment : Fragment() {
         Log.d("HSV", pokeName)
 
         if(pokeName == "deoxys"){
-            //pokeName = "deoxys-normal"
+            pokeName = "deoxys-normal"
         }
 
         lifecycleScope.launch {
@@ -133,18 +133,18 @@ class DetailsFragment : Fragment() {
         Log.d("HSV", pokemon.toString())
 
         Glide.with(this@DetailsFragment).load(pokemon.sprite).into(binding.folder)
-        binding.pokeName.text =
-            resources.getString(R.string.poke_name, pokemon.id, pokemon.name)
-        binding.pokeHeight.text = resources.getString(R.string.poke_height, (pokemon.height.toDouble() / 10).toString())
-        binding.pokeWeight.text = resources.getString(R.string.poke_weight, (pokemon.weight.toDouble() / 10).toString())
-        binding.pokeType.text = resources.getString(
-            R.string.poke_types,
-            pokemon.types.joinToString(separator = ", ")
-        )
 
+        binding.apply {
+            pokeName.text = resources.getString(R.string.poke_name, pokemon.id, pokemon.name)
+            pokeHeight.text = resources.getString(R.string.poke_height, (pokemon.height.toDouble() / 10).toString())
+            pokeWeight.text = resources.getString(R.string.poke_weight, (pokemon.weight.toDouble() / 10).toString())
+            pokeType.text = resources.getString(
+                R.string.poke_types,
+                pokemon.types.joinToString(separator = ", ")
+            )
+        }
 
         pokemon.abilites.forEach { ability->
-
             val txtAbility = TextView(requireContext())
 
             txtAbility.text = ability.replaceFirstChar { it.uppercase() }
@@ -159,12 +159,14 @@ class DetailsFragment : Fragment() {
 
     private fun fillStatus(stats: List<Map<String, Int>>) {
 
-        binding.barHp.setTamStatus(stats[0].getValue("hp"))
-        binding.barAttack.setTamStatus(stats[1].getValue("attack"))
-        binding.barDefense.setTamStatus(stats[2].getValue("defense"))
-        binding.barSpAttack.setTamStatus(stats[3].getValue("special-attack"))
-        binding.barSpDefense.setTamStatus(stats[4].getValue("special-defense"))
-        binding.barSpeed.setTamStatus(stats[5].getValue("speed"))
+        binding.apply {
+            barHp.setTamStatus(stats[0].getValue("hp"))
+            barAttack.setTamStatus(stats[1].getValue("attack"))
+            barDefense.setTamStatus(stats[2].getValue("defense"))
+            barSpAttack.setTamStatus(stats[3].getValue("special-attack"))
+            barSpDefense.setTamStatus(stats[4].getValue("special-defense"))
+            barSpeed.setTamStatus(stats[5].getValue("speed"))
+        }
     }
 
     private fun showNameEvolution(nameEvolution: String) {
@@ -176,7 +178,6 @@ class DetailsFragment : Fragment() {
 
     private fun showAbilitiesFragment(nameAbility: String){
         if(activity is DetailsActivity){
-
             val act = activity as DetailsActivity
 
             act.showAbility(nameAbility)

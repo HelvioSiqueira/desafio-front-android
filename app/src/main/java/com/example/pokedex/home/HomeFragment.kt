@@ -40,8 +40,6 @@ class HomeFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
 
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
-        Log.d("HSV", activity.toString())
-
         viewModel.onListIsReady.observe(viewLifecycleOwner, Observer { ready ->
             if (ready) {
                 obterLista()
