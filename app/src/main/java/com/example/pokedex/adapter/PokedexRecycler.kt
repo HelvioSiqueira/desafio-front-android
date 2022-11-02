@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokedex.model.PokeList
@@ -66,6 +65,18 @@ class PokedexRecycler(
         return vh
     }
 
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        val (id, name, _, urlImg) = pokeList[position]
+
+        Glide.with(context).load(urlImg).into(holder.binding.imgView)
+
+        holder.binding.txtNomeId.text = "N°$id $name"
+    }
+
+    override fun getItemCount() = pokeList.size
+
+    inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
+
     private fun selectItem(vh: VH, view: View, op: Int) {
 
         val itemList = pokeList[vh.adapterPosition]
@@ -77,24 +88,12 @@ class PokedexRecycler(
                 view.isActivated = false
             }
             2 -> {
-                vh.binding.cardView.setCardBackgroundColor(Color.parseColor("#ef6564"))
+                vh.binding.cardView.setCardBackgroundColor(Color.parseColor("#ff3f4b"))
                 deletionList.add(itemList)
                 view.isActivated = true
             }
         }
     }
-
-    override fun onBindViewHolder(holder: VH, position: Int) {
-        val (name, id, _, urlImg) = pokeList[position]
-
-        Glide.with(context).load(urlImg).into(holder.binding.imgView)
-
-        holder.binding.txtNomeId.text = "N°$id $name"
-    }
-
-    override fun getItemCount() = pokeList.size
-
-    inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
 
     companion object {
         val deletionList = mutableListOf<PokeList>()

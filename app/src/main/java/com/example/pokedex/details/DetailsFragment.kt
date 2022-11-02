@@ -42,6 +42,12 @@ class DetailsFragment : Fragment() {
             pokeName = getString("poke_name").toString()
         }
 
+        Log.d("HSV", pokeName)
+
+        if(pokeName == "deoxys"){
+            //pokeName = "deoxys-normal"
+        }
+
         lifecycleScope.launch {
 
             pokemonDetails = viewModel.getPokemon(pokeName)
@@ -91,7 +97,7 @@ class DetailsFragment : Fragment() {
         val quantStages = evolutionChain.count { it.isNotEmpty() }
 
         if (quantStages == 1) {
-            binding.txtEvolutions.text = "Este pokemon nao evolui"
+            binding.txtEvolutions.text = resources.getString(R.string.txt_nao_evolui)
         }
 
         for ((index, element) in evolutionChain.withIndex()) {
@@ -123,6 +129,9 @@ class DetailsFragment : Fragment() {
     }
 
     private fun fillDetails(binding: FragmentDetailsBinding, pokemon: Pokemon) {
+
+        Log.d("HSV", pokemon.toString())
+
         Glide.with(this@DetailsFragment).load(pokemon.sprite).into(binding.folder)
         binding.pokeName.text =
             resources.getString(R.string.poke_name, pokemon.id, pokemon.name)
@@ -135,8 +144,6 @@ class DetailsFragment : Fragment() {
 
 
         pokemon.abilites.forEach { ability->
-
-            Log.d("HSV", "Habilidade: $ability")
 
             val txtAbility = TextView(requireContext())
 

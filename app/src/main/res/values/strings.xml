@@ -24,6 +24,7 @@
     <string name="poke_types">Tipos: %1$s</string>
     <string name="poke_abilites">Habilidades: %1$s</string>
 
+    <string name="txt_nao_evolui">Este pokemon nao evolui</string>
     <string name="txt_evolutions">Evolucoes</string>
     <string name="txt_stats">Status</string>
 

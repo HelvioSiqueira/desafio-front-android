@@ -48,8 +48,8 @@ class AbilitiesFragment: DialogFragment() {
 
     private fun fillAbilitiesFragment(ability: Ability, binding: FragmentAbilitiesBinding){
         binding.titleAbility.text = ability.name.replaceFirstChar { it.uppercase() }
-        binding.effect.text = ability.efect
-        binding.shortEffect.text = ability.shortEfect
+        binding.effect.text = ability.effect
+        binding.shortEffect.text = ability.shortEffect
     }
 
     fun open(fm: FragmentManager){

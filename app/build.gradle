@@ -2,6 +2,14 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    //Adiciona o Google Services ao Projeto
+    id 'com.google.gms.google-services'
+
+    //Adiciona o Crashlytics ao Projeto
+    id 'com.google.firebase.crashlytics'
+
+    //Adicona o Monitor de Performance ao projeto
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -38,6 +46,16 @@ android {
 }
 
 dependencies {
+
+    //Dependecias do Firebase e Firebase Analytics
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    //Dependencia do Monitor de Peformance
+    implementation 'com.google.firebase:firebase-perf-ktx'
+
+    //Dependecias do Crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     //Testes
     //JUnit

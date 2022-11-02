@@ -11,7 +11,7 @@ data class ShortEfectAbilityGson(
 
 data class ShortEfect(
     @SerializedName("effect")
-    val efect: String = "",
+    val effect: String = "",
     @SerializedName("short_effect")
-    val shortEfect: String = ""
+    val shortEffect: String = ""
 )

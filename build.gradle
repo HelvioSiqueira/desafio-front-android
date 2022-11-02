@@ -1,4 +1,18 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    dependencies {
+        //Add dependencia do Google Services
+        classpath 'com.google.gms:google-services:4.3.14'
+        classpath 'com.android.tools.build:gradle:7.2.0'
+
+        //Add dependencia do Crashlytics
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
+
+        //Add dependecia do Monitor de Peformance
+        classpath 'com.google.firebase:perf-plugin:1.4.2'
+    }
+}
+
 plugins {
     id 'com.android.application' version '7.2.0' apply false
     id 'com.android.library' version '7.2.0' apply false

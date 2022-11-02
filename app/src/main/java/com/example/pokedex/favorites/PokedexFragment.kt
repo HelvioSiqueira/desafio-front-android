@@ -12,10 +12,8 @@ import com.example.pokedex.model.PokeList
 import com.example.pokedex.adapter.PokedexRecycler
 import com.example.pokedex.databinding.FragmentPokedexBinding
 import com.example.pokedex.home.HomeFragment
-import okhttp3.internal.notifyAll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//Excluir HttpRepository quando deixar de ser usada
 class PokedexFragment : Fragment(), ActionMode.Callback{
 
     private lateinit var binding: FragmentPokedexBinding
@@ -91,10 +89,14 @@ class PokedexFragment : Fragment(), ActionMode.Callback{
         Log.d("HSV", "Depois de excluida: ${pokeList.joinToString(", ")}")
 
         if(menuItem?.itemId == R.id.action_delete){
-            pokeList.clear()
-            viewModel.deletedSelection(*deletionList.toTypedArray())
+            if(deletionList.size > 0){
+                pokeList.clear()
+                viewModel.deletedSelection(*deletionList.toTypedArray())
 
-            actionMode?.finish()
+                actionMode?.finish()
+            } else {
+                actionMode?.finish()
+            }
         }
 
         return true
@@ -116,7 +118,6 @@ class PokedexFragment : Fragment(), ActionMode.Callback{
     }
 
     companion object {
-        const val SECTION_TRACKER_KEY = "selectionTrackerPoke"
         const val FRAGMENT_POKEDEX = "pokedex_id"
     }
 }

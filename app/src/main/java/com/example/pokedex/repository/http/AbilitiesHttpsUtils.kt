@@ -1,6 +1,5 @@
 package com.example.pokedex.repository.http
 
-import android.util.Log
 import com.example.pokedex.model.Ability
 
 class AbilitiesHttpsUtils(private val api: Endpoint) {
@@ -12,19 +11,23 @@ class AbilitiesHttpsUtils(private val api: Endpoint) {
 
         if (response.isSuccessful) {
 
-            response.body()?.let {
+            response.body()?.let { shortEffectAbility->
 
-                Log.d("HSV", it.effectEntry.toString())
+                if (shortEffectAbility.effectEntry.isNotEmpty()) {
+                    if (shortEffectAbility.effectEntry.size > 1) {
 
-                if (it.effectEntry.isNotEmpty()) {
-                    if (it.effectEntry.size > 1) {
-                        ability.name = it.nameAbility
-                        ability.efect = it.effectEntry[1].efect
-                        ability.shortEfect = it.effectEntry[1].shortEfect
+                        ability.apply {
+                            name = shortEffectAbility.nameAbility
+                            effect = shortEffectAbility.effectEntry[1].effect
+                            ability.shortEffect = shortEffectAbility.effectEntry[1].shortEffect
+                        }
+
                     } else {
-                        ability.name = it.nameAbility
-                        ability.efect = it.effectEntry[0].efect
-                        ability.shortEfect = it.effectEntry[0].shortEfect
+                        ability.apply {
+                            name = shortEffectAbility.nameAbility
+                            effect = shortEffectAbility.effectEntry[0].effect
+                            ability.shortEffect = shortEffectAbility.effectEntry[0].shortEffect
+                        }
                     }
                 }
             }
