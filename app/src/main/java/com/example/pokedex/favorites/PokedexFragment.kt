@@ -114,7 +114,6 @@ class PokedexFragment : Fragment(), ActionMode.Callback{
         activeDeleteMode(false)
         showPokeList()
         PokedexRecycler.clearDeletionList()
-        Log.d("HSV", "Saiu do multipleSelect")
     }
 
     companion object {

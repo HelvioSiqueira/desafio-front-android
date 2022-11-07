@@ -78,7 +78,6 @@ class PokedexRecycler(
     inner class VH(val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root)
 
     private fun selectItem(vh: VH, view: View, op: Int) {
-
         val itemList = pokeList[vh.adapterPosition]
 
         when (op) {
