@@ -4,4 +4,4 @@ App criado com base no desafio proposto pela Blu: [Link do Desafio](https://gith
 
 Funcionalidades de app: O app foi idealizado para ser uma pokedex(catálogo de pokemon), ele realiza pesquisa de pokemon, adiciona e exclui dos favoritos, exibe detalhes e mais.
 
-[](imagens/captura1.png)
+![](imagens/captura1.png) ![](imagens/captura2.png) ![](imagens/captura3.png) ![](imagens/captura4.png)
