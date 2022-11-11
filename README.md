@@ -28,4 +28,4 @@ O app foi idealizado para ser uma pokedex(catálogo de pokemon)<br>
   
 </ul>
 
-![](imagens/captura1.png) ![](imagens/captura2.png) ![](imagens/captura3.png) ![](imagens/captura4.png)
+<img width=24% height=auto; src="imagens/captura1.png"> <img width=24% height=auto; src="imagens/captura2.png"> <img width=24% height=auto; src="imagens/captura3.png"> <img width=24% height=auto; src="imagens/captura4.png">
