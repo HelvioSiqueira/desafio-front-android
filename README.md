@@ -21,7 +21,7 @@ O app foi idealizado para ser uma pokedex(catálogo de pokemon)<br>
   <li>Koin</li>
   <li>Gson</li>
   <li>RecyclerView</li>
-  <li>Lifecicle</li>
+  <li>Lifecycle</li>
   <li>Room</li>
   <li>Glide</li>
   <li>Navigation</li>
